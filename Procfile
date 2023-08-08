@@ -1,0 +1,1 @@
+web: gunicorn zilo.wsgi --log-file -
