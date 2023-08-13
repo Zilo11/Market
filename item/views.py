@@ -79,7 +79,6 @@ def delete(request, pk):
     return redirect('dashboard:index')
 
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
 from .models import Category, Item, Review
 from .forms import ReviewForm
 
@@ -97,4 +96,13 @@ def item_detail(request, pk):
             review.save()
             return redirect('item_detail', pk=pk)
 
-    return render(request, 'item_detail.html', {'item': item, 'reviews': reviews, 'form': form})
+    # Get items with similar user interactions
+    similar_items = Item.objects.filter(reviews__user=request.user).exclude(pk=pk).distinct()
+
+    return render(request, 'item_detail.html', {
+        'item': item,
+        'reviews': reviews,
+        'form': form,
+        'similar_items': similar_items
+    })
+    

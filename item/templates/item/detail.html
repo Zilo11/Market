@@ -19,6 +19,7 @@
                 </p>
             {% endif %}
 
+            
             <div class="mt-6">
                 <h2 class="text-xl">Reviews</h2>
                 {% if item.reviews.all %}
@@ -47,7 +48,11 @@
                         <button type="submit" class="px-4 py-2 text-white bg-gray-900 rounded-lg mt-4">Submit review</button>
                     </form>
                 {% else %}
+<<<<<<< Updated upstream
                     <p class="mt-6">Please <a href="#">log in</a> to add a review.</p>
+=======
+                    {% comment %} <p class="mt-6">Please <a href="{% url 'account_login' %}?next={{ request.path }}">log in</a> to add a review.</p> {% endcomment %}
+>>>>>>> Stashed changes
                 {% endif %}
             </div>
 
