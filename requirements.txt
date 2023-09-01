@@ -19,3 +19,4 @@ virtualenv
 psycopg2
 whitenoise
 dj_database_url
+channels
