@@ -32,17 +32,14 @@ def termsAndConditions(request):
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
-
         if form.is_valid():
-            form.save()
-            login(request, user) 
-            return redirect('/termsAndConditions/')
+            user = form.save()
+            login(request, user)
+            return redirect('/termsAndConditions/')  
     else:
         form = SignupForm()
-
-    return render(request, 'core/signup.html', {
-        'form': form
-    })
+    
+    return render(request, 'core/signup.html', {'form': form})
     
 def sign_out(request):
     logout(request)
