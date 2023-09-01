@@ -24,4 +24,23 @@
     <button class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Send</button>
 </form>
 <br><br>
+<script>
+    var conversationSocket = new WebSocket(
+        'ws://{{ request.get_host }}{% url "conversation:websocket" conversation.id %}'
+    );
+    
+    conversationSocket.onmessage = function(e) {
+        var message = JSON.parse(e.data);
+        // Handle the incoming message, update the UI, etc.
+    };
+    
+    conversationSocket.onclose = function(e) {
+        // Handle WebSocket connection closed
+    };
+    
+    // Send a message through the WebSocket
+    function sendMessage(message) {
+        conversationSocket.send(JSON.stringify(message));
+    }
+    </script>
 {% endblock %}
