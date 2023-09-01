@@ -3,5 +3,96 @@
 {% block title %}Contact{% endblock %}
 
 {% block content %}
-    <h1>The contact page</h1>
+
+<body>
+    <style>
+        .form-group {
+            position: relative;
+        }
+        
+        .input-box {
+            position: relative;
+        }
+        
+        .input-box input[type="text"],
+        .input-box input[type="email"],
+        .input-box textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title" data-aos="zoom-out">
+                <h1>Contact Us</h1>
+            </div>
+    
+
+            
+            <div class="col-lg-8     mt-5 mt-lg-0" data-aos="fade-left">
+    
+                <form action="https://formspree.io/f/xpzelywr" method="post">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <div class="input-box">
+                                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group mt-3 mt-md-0">
+                            <div class="input-box">
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-3">
+                        <div class="input-box">
+                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                        </div>
+                    </div>
+                    <div class="form-group mt-3">
+                        <div class="input-box">
+                            <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                        </div>
+                    </div>
+                    <div class="text-center" style="color: blue;">
+                        <button class="btn btn-primary btn-block"  type="submit">Send Message</button>
+                    </div>
+                </form>
+
+            </div>
+            <div class="row mt-20 mb-7">
+    
+                <div class="col-lg-4" data-aos="fade-right">
+                    <div class="info">
+                        <div class="address">
+                            <i class="bi bi-geo-alt"></i>
+                            <span><h4><b>Location:</b>
+                            Bamenda, Cameroon</h4></span>
+                        </div>
+    
+                        <div class="email">
+                            <i class="bi bi-envelope"></i>
+                            <span><h4><b>Email:</b>
+                            zilotechnologies@gmail.com</h4></span>
+                        </div>
+    
+                        <div class="phone">
+                            <i class="bi bi-phone"></i>
+                            <strong><b>Phone:</b></strong> +237 681775574
+                            <p style="margin-left: 55px;">+237 672384579</p>
+                        </div>
+                    </div>
+                </div>
+    
+    
+            </div>
+    
+        </div>
+    </section><!-- End Contact Section -->
+    
+    
 {% endblock %}

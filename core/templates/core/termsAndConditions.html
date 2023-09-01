@@ -1,0 +1,58 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+<head>
+    <style>
+        .terms-banner {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .terms-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .terms-content {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        
+        .terms-list {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        
+        .terms-list li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="terms-banner">
+        <div class="terms-title">Terms and Conditions</div>
+        <div class="terms-content">
+            By using our Marketplace website, you agree to comply with and be bound by the following terms and conditions:
+        </div>
+        <div class="terms-list">
+            <ul>
+                <li>Use our website in accordance with applicable laws and regulations.</li>
+                <li>Do not engage in any illegal, fraudulent, or unauthorized activities.</li>
+                <li>Respect the intellectual property rights of others.</li>
+                <li>Do not transmit any viruses, malware, or harmful code.</li>
+                <li>Maintain the confidentiality of your account credentials.</li>
+                <li>Provide accurate and up-to-date information when creating an account or listing products.</li>
+                <li>Communicate respectfully and professionally with other users.</li>
+                <li>We reserve the right to terminate or suspend your account for violations of these terms and conditions.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+{% endblock %}
