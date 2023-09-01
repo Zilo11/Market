@@ -8,6 +8,7 @@
 
     <div class="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-3">
         {% for item in items %}
+        {% if item %}
             <div>
                 <a href="{% url 'item:detail' item.id %}">
                     <div>
@@ -20,6 +21,10 @@
                     </div>
                 </a>
             </div>
+            {% else %}
+            <h2> You've added no item yet</h2>
+            {% endif %}
+            
         {% endfor %}
     </div>
 </div>
