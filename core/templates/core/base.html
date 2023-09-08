@@ -82,7 +82,7 @@
                     <li><a href="{% url 'core:about' %}"class="text-lg hover:text-teal-500">About</a></li>
                     <li><a href="{% url 'core:contact' %}" class="text-lg hover:text-teal-500">Contact</a></li>
                     <li><a href="{% url 'core:privacy_policy' %}" class="text-lg hover:text-teal-500">Privacy policy</a></li>
-                    <li><a href="{% url 'core:termsAndConditions' %}" class="text-lg hover:text-teal-500" >Terms of use</a></li>
+                    {% comment %} <li><a href="{% url 'core:termsAndConditions' %}" class="text-lg hover:text-teal-500" >Terms of use</a></li> {% endcomment %}
                 </ul>
             </div>
         </footer>
