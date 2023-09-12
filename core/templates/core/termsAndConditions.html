@@ -33,6 +33,38 @@
         .terms-list li {
             margin-bottom: 10px;
         }
+        
+        .accept-checkbox {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .accept-label {
+            display: inline-block;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+        
+        .accept-checkbox:checked + .accept-label {
+            color: #007bff;
+        }
+        
+        .accept-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: not-allowed;
+        }
+        
+        .accept-checkbox:checked + .accept-button {
+            cursor: pointer;
+            pointer-events: auto;
+            background-color: #28a745;
+        }
     </style>
 </head>
 <body>
@@ -53,6 +85,32 @@
                 <li>We reserve the right to terminate or suspend your account for violations of these terms and conditions.</li>
             </ul>
         </div>
-    </div>
+        
+        <label>
+            <input type="checkbox" id="accept-checkbox" class="accept-checkbox">
+            <span class="accept-label">I accept the terms and conditions</span>
+        </label>
+        
+        <a href="{% url 'dashboard:index' %}" class="accept-button" disabled>Accept</a>
+        </div>
+
+    <script>
+        const checkbox = document.querySelector('.accept-checkbox');
+        const acceptButton = document.querySelector('.accept-button');
+        
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                acceptButton.removeAttribute('disabled');
+                acceptButton.classList.remove('cursor-not-allowed');
+                acceptButton.style.cursor = 'pointer';
+                acceptButton.style.backgroundColor = '#28a745';
+            } else {
+                acceptButton.setAttribute('disabled', true);
+                acceptButton.classList.add('cursor-not-allowed');
+                acceptButton.style.cursor = 'not-allowed';
+                acceptButton.style.backgroundColor = '#007bff';
+            }
+        });
+    </script>
 </body>
 {% endblock %}
