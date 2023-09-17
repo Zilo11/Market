@@ -1,0 +1,262 @@
+[33mcommit dfc6f6b54d688302ad6243de927c86e97e836e73[m[33m ([m[1;36mHEAD -> [m[1;32madjustments[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Merge: a42330b 1a3426c
+Author: Nyuydine Bill leynyuy <121938133+NyuydineBill@users.noreply.github.com>
+Date:   Sun Sep 17 02:50:56 2023 +0100
+
+    Merge pull request #7 from Zilo11/adjustments
+    
+     Related items removed from grid view to allow items align downward, …
+
+[33mcommit 1a3426cad9f5f1b2dc99bcd0777ef628c59dd617[m[33m ([m[1;31morigin/adjustments[m[33m)[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Sun Sep 17 02:48:03 2023 +0100
+
+     Related items removed from grid view to allow items align downward, also currency changed to FCFA
+
+[33mcommit a42330bb9e4f21f11849b261549ce3ada09f3548[m
+Merge: b45c9a4 ea570d9
+Author: Nyuydine Bill leynyuy <121938133+NyuydineBill@users.noreply.github.com>
+Date:   Sun Sep 17 02:29:59 2023 +0100
+
+    Merge pull request #6 from Zilo11/adjustments
+    
+    added back gitignore after problem solved
+
+[33mcommit ea570d942a1d2d54b6e7a869df5768f04b6fe0cd[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Sun Sep 17 02:23:43 2023 +0100
+
+    added back gitignore after problem solved
+
+[33mcommit b45c9a45d441896391d08cbe6f5bcc4357752776[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Sun Sep 17 02:00:08 2023 +0100
+
+    items added from localhost
+
+[33mcommit fe4649aeb045ea15c10b45e2e6832673f6942bd5[m
+Merge: d8d48ee e6e7b7f
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Sun Sep 17 01:38:17 2023 +0100
+
+    Merge branch 'main' of https://github.com/Zilo11/Market
+
+[33mcommit d8d48eefc3663f4c8a838afa49203f08befe7a72[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Sun Sep 17 01:10:24 2023 +0100
+
+    commented the gitignore items
+
+[33mcommit e6e7b7fba08cb8c81a3c36da073753dfc6b13c92[m
+Merge: 22b1b51 0d9f075
+Author: Nyuydine Bill leynyuy <121938133+NyuydineBill@users.noreply.github.com>
+Date:   Wed Sep 13 13:14:55 2023 +0100
+
+    Merge pull request #5 from LivingstonTardzenyuy/illigial/accRestriction
+    
+    fix the home screen
+
+[33mcommit 0d9f07534d9435e360a7f812d2a30ef4f95c749e[m
+Author: kongnyuy livingston <kongnyuylivingston2@gmail.com>
+Date:   Wed Sep 13 07:42:40 2023 +0100
+
+    fix the home screen
+
+[33mcommit 22b1b514168837065ee6f04bf172d7ad4537f928[m
+Merge: ae5b9d7 d6d9a0a
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Tue Sep 12 13:12:50 2023 +0100
+
+    changed currency to fcfa and reversed the query appearance of items in homepage
+
+[33mcommit d6d9a0ac8219df3c8e890b4120459b8acf5aae02[m
+Merge: fa6145e b839b53
+Author: Nyuydine Bill leynyuy <121938133+NyuydineBill@users.noreply.github.com>
+Date:   Tue Sep 12 12:47:34 2023 +0100
+
+    Merge pull request #4 from Zilo11/terms-and-conditions-section
+    
+    Terms and conditions section
+
+[33mcommit b839b5333c585b2e8c2272248645c75c3df43649[m[33m ([m[1;31morigin/terms-and-conditions-section[m[33m, [m[1;32mterms-and-conditions-section[m[33m)[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Tue Sep 12 12:35:06 2023 +0100
+
+    migrated db to pgdb
+
+[33mcommit ae5b9d7b6f84f3c35d9f41b225231ce0091738a2[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Tue Sep 12 12:31:13 2023 +0100
+
+    unknown
+
+[33mcommit 711f114f6fd192eb722e46b732c619d99718f0b0[m[33m ([m[1;32mpgdb[m[33m)[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Tue Sep 12 11:56:08 2023 +0100
+
+    migrated database to postgresdb
+
+[33mcommit fa6145ece1b91a3b574f51e164d2e56834373aa6[m
+Merge: c24fd3e 99637d0
+Author: Zilo11 <137594239+Zilo11@users.noreply.github.com>
+Date:   Sat Sep 9 01:03:40 2023 +0100
+
+    Merge pull request #3 from Zilo11/terms-and-conditions-section
+    
+    Terms and conditions section
+
+[33mcommit 99637d0f8fb774c69eed0a1b912fdbbe6e951d16[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Sat Sep 9 00:59:04 2023 +0100
+
+    terms and conditions checked before homepage display
+
+[33mcommit e90270f201ab18e96181ad1530976157af169948[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Fri Sep 8 22:11:55 2023 +0100
+
+    the user can no longer access the home page unless accepted the terms and conditions, the button has also been removed from the footer since it is useless after the user had accepted already
+
+[33mcommit c24fd3ea39672c55f748dfd01216efb5cdd79944[m[33m ([m[1;32mmigrateddb[m[33m)[m
+Author: Zilo11 <137594239+Zilo11@users.noreply.github.com>
+Date:   Sat Sep 2 00:30:20 2023 +0100
+
+    Update views.py
+
+[33mcommit 040364fdaf4275a21506873cb0e7e8bede16f3ad[m
+Author: Zilo11 <137594239+Zilo11@users.noreply.github.com>
+Date:   Sat Sep 2 00:13:31 2023 +0100
+
+    Update views.py
+
+[33mcommit eb21afe4a2a02909789fefef698cda653f15f833[m
+Author: Zilo11 <137594239+Zilo11@users.noreply.github.com>
+Date:   Sat Sep 2 00:04:31 2023 +0100
+
+    Update views.py
+
+[33mcommit f914b5b116598efb6db68b3dda26690ab74e56d6[m
+Author: Zilo11 <137594239+Zilo11@users.noreply.github.com>
+Date:   Fri Sep 1 23:48:48 2023 +0100
+
+    Update views.py
+
+[33mcommit 08e561c3654a59e286e17324c9a5436670b3560f[m
+Author: Zilo11 <137594239+Zilo11@users.noreply.github.com>
+Date:   Fri Sep 1 23:31:53 2023 +0100
+
+    Update requirements.txt
+
+[33mcommit c198cb4ca7d02a835fe551af206b9f358b2ef8b7[m
+Merge: 7dba730 53beac1
+Author: Zilo11 <137594239+Zilo11@users.noreply.github.com>
+Date:   Fri Sep 1 23:23:43 2023 +0100
+
+    Merge pull request #2 from Zilo11/new
+    
+    updates
+
+[33mcommit 53beac1beff96d50f1d093321334bee0e7314dee[m[33m ([m[1;31morigin/new[m[33m, [m[1;32mnew[m[33m)[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Fri Sep 1 23:18:22 2023 +0100
+
+    updates
+
+[33mcommit 7dba730f9ec1febcb453e20f999998529ee8533f[m
+Merge: a75e362 935c83c
+Author: Zilo11 <137594239+Zilo11@users.noreply.github.com>
+Date:   Fri Sep 1 22:59:34 2023 +0100
+
+    Merge pull request #1 from Zilo11/new
+    
+    New
+
+[33mcommit 935c83c5b62ae161a6a8a527f00f7c58c87ae28e[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Fri Sep 1 22:54:35 2023 +0100
+
+    updates
+
+[33mcommit 23a75f489f9bdd8943f7ebc70ba37f57fa068cf2[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Fri Sep 1 22:37:16 2023 +0100
+
+    updating code
+
+[33mcommit e5875d7144df3a578f187eaf288d4af252a2a80f[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Fri Sep 1 19:51:46 2023 +0100
+
+    working in improvements
+
+[33mcommit a75e362cc08471e93ef0863f3fb8a1617bdaae01[m
+Author: Zilo11 <137594239+Zilo11@users.noreply.github.com>
+Date:   Mon Aug 14 00:22:06 2023 +0100
+
+    Update detail.html
+
+[33mcommit 5b89917bc6613815aec61f913ae99ed015b1f4c1[m
+Author: Zilo11 <137594239+Zilo11@users.noreply.github.com>
+Date:   Mon Aug 14 00:19:23 2023 +0100
+
+    Update items.html
+
+[33mcommit 150a660cd99c266f8e3254f78160b6c399637064[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Sun Aug 13 22:55:01 2023 +0100
+
+    sqlite
+
+[33mcommit 6811883dee483999e96e6fd4ab26cb1055d73fe9[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Sun Aug 13 22:39:48 2023 +0100
+
+    sqlite
+
+[33mcommit 31d1d24892d115ea4414b1dfc1e26803c00fbfd7[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Sun Aug 13 22:38:38 2023 +0100
+
+    sqlite
+
+[33mcommit f94d5d8ffbd05910a3d8634b5c88e23f833c832a[m
+Author: Zilo11 <137594239+Zilo11@users.noreply.github.com>
+Date:   Sun Aug 13 01:32:53 2023 +0100
+
+    Add or update the Azure App Service build and deployment workflow config
+
+[33mcommit 5c2a597f22f55d4b225286043b87ad4df36f89e5[m
+Author: Zilo11 <137594239+Zilo11@users.noreply.github.com>
+Date:   Tue Aug 8 03:59:21 2023 +0100
+
+    Update detail.html
+
+[33mcommit 186284f528dfce50891573a97be4e15726e86829[m
+Author: Zilo11 <137594239+Zilo11@users.noreply.github.com>
+Date:   Tue Aug 8 03:31:12 2023 +0100
+
+    Delete .gitattributes
+
+[33mcommit 0a11bda2b16211905d28fa8a25e076815f7cda75[m
+Author: Zilo11 <137594239+Zilo11@users.noreply.github.com>
+Date:   Tue Aug 8 03:30:28 2023 +0100
+
+    Update .gitattributes
+
+[33mcommit e39427955bac63854d3d9cfa605ea7e5a36b79a5[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Tue Aug 8 03:29:04 2023 +0100
+
+    Nyuydine nm
+
+[33mcommit 54c0e701bfb146fe007aeaf2dded951acf555f15[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Tue Aug 8 02:50:38 2023 +0100
+
+    Nyuydine
+
+[33mcommit c12f00368275d7e6c2379a9abf8d21adeaa54a48[m
+Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
+Date:   Tue Aug 8 02:18:57 2023 +0100
+
+    Initial commit
