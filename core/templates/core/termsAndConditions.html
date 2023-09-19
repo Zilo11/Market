@@ -1,7 +1,6 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-
 <head>
     <style>
         .terms-banner {
@@ -10,46 +9,46 @@
             text-align: center;
             margin-bottom: 20px;
         }
-        
+
         .terms-title {
             font-size: 24px;
             font-weight: bold;
             color: #333;
             margin-bottom: 10px;
         }
-        
+
         .terms-content {
             font-size: 16px;
             color: #555;
             margin-bottom: 20px;
         }
-        
+
         .terms-list {
             font-size: 16px;
             color: #555;
             margin-bottom: 20px;
         }
-        
+
         .terms-list li {
             margin-bottom: 10px;
         }
-        
+
         .accept-checkbox {
             display: inline-block;
             margin-bottom: 10px;
         }
-        
+
         .accept-label {
             display: inline-block;
             margin-bottom: 10px;
             font-size: 16px;
             color: #555;
         }
-        
-        .accept-checkbox:checked + .accept-label {
+
+        .accept-checkbox:checked + span.accept-label {
             color: #007bff;
         }
-        
+
         .accept-button {
             margin-top: 20px;
             padding: 10px 20px;
@@ -59,7 +58,7 @@
             border: none;
             cursor: not-allowed;
         }
-        
+
         .accept-checkbox:checked + .accept-button {
             cursor: pointer;
             pointer-events: auto;
@@ -85,32 +84,25 @@
                 <li>We reserve the right to terminate or suspend your account for violations of these terms and conditions.</li>
             </ul>
         </div>
-        
-        <label>
-            <input type="checkbox" id="accept-checkbox" class="accept-checkbox">
-            <span class="accept-label">I accept the terms and conditions</span>
+
+        <label class="text-secondary">
+            <input type="checkbox" id="accept-checkbox" class="accept-checkbox mt-5" onchange="toggleAcceptButton(this)">
+            <b><span class="accept-label text-primary">I accept the terms and conditions</span></b>
         </label>
-        
-        <a href="{% url 'dashboard:index' %}" class="accept-button" disabled>Accept</a>
-        </div>
+
+        <a href="{% url 'dashboard:index' %}" id="accept-button" class="accept-button" style="display: none;">Proceed</a>
+    </div>
 
     <script>
-        const checkbox = document.querySelector('.accept-checkbox');
-        const acceptButton = document.querySelector('.accept-button');
-        
-        checkbox.addEventListener('change', function() {
-            if (this.checked) {
-                acceptButton.removeAttribute('disabled');
-                acceptButton.classList.remove('cursor-not-allowed');
-                acceptButton.style.cursor = 'pointer';
-                acceptButton.style.backgroundColor = '#28a745';
+        function toggleAcceptButton(checkbox) {
+            const acceptButton = document.getElementById('accept-button');
+            
+            if (checkbox.checked) {
+                acceptButton.style.display = 'inline-block';
             } else {
-                acceptButton.setAttribute('disabled', true);
-                acceptButton.classList.add('cursor-not-allowed');
-                acceptButton.style.cursor = 'not-allowed';
-                acceptButton.style.backgroundColor = '#007bff';
+                acceptButton.style.display = 'none';
             }
-        });
+        }
     </script>
 </body>
 {% endblock %}
