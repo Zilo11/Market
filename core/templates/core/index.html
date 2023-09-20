@@ -3,17 +3,15 @@
 {% block title %}Welcome{% endblock %}
 
 {% block content %}
-
-
-<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-    <div class="flex justify-between items-center px-20">
-        <form method="get" action="{% url 'item:items' %}" class="flex" style="margin-left: 400px;" >
-            <input style="border-radius: 15px;" name="query" class="flex-1 py-2 px-4 border rounded" type="text" value="{{ query }}" placeholder="Find a your items here...">
-            <button style="border-radius: 15px;" class="ml-2 sm:ml-4 py-2 px-4 text-sm bg-teal-500 text-white rounded">Search</button>
+<div class="mt-0 px-6 py-2 bg-gray-100 rounded-xl">
+    {% comment %} <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl flex justify-center items-center"> {% endcomment %}
+        <form method="get" action="{% url 'item:items' %}" class="flex flex-wrap">
+            <div style=" margin: auto; ">
+            <input name="query" class="py-2 px-4 border rounded" type="text" value="{{ query }}" placeholder="Find your items here..." style="width: 300px;border-radius: 20px;">
+            <button class="ml-2 sm:ml-4 py-2 px-4 text-sm bg-teal-500 text-white rounded" style="border-radius: 20px;">Search</button>
+            </div>
         </form>
-    </div>
-
-
+    {% comment %} </div> {% endcomment %}
     <h2 class="mb-12 text-2xl text-center"><b style="font-size: 20px;">Newest items</b></h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-2">
@@ -21,7 +19,7 @@
         <div class="flex flex-col items-center mb-4"> <!-- Added margin-bottom  so as the have a space between my text and the uppder one-->
             <a href="{% url 'item:detail' item.id %}">
                 <div class="w-full max-w-xs">
-                    <img src="{{ item.image.url }}" class="object-cover w-full h-64 rounded-t-xl">
+                    <img src="{{ item.image.url }}" class="object-cover w-full h-64 rounded-t-xl" style="width: 400px;">
                 </div>
             </a>
             <div class="p-6 bg-white rounded-b-xl w-full max-w-xs">
