@@ -12,12 +12,7 @@
             <button style="border-radius: 15px;" class="ml-2 sm:ml-4 py-2 px-4 text-sm bg-teal-500 text-white rounded">Search</button>
         </form>
     </div>
-
-
-    <h2 class="mb-12 text-2xl text-center"><b style="font-size: 20px;">Newest items</b></h2>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-2">
-        {% for item in items reversed %}
+   {% for item in items reversed %}
         <div class="flex flex-col items-center mb-4"> <!-- Added margin-bottom  so as the have a space between my text and the uppder one-->
             <a href="{% url 'item:detail' item.id %}">
                 <div class="w-full max-w-xs">
