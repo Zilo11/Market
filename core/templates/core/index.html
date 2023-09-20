@@ -8,7 +8,7 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-2">
         {% for item in items reversed %}
-        <div class="flex flex-col items-center mb-4"> <!-- Added margin-bottom -->
+        <div class="flex flex-col items-center mb-4"> <!-- Added margin-bottom  so as the have a space between my text and the uppder one-->
             <a href="{% url 'item:detail' item.id %}">
                 <div class="w-full max-w-xs">
                     <img src="{{ item.image.url }}" class="object-cover w-full h-64 rounded-t-xl">
