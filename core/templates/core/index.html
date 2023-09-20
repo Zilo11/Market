@@ -3,7 +3,17 @@
 {% block title %}Welcome{% endblock %}
 
 {% block content %}
+
+
 <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+    <div class="flex justify-between items-center px-20">
+        <form method="get" action="{% url 'item:items' %}" class="flex" style="margin-left: 400px;" >
+            <input style="border-radius: 15px;" name="query" class="flex-1 py-2 px-4 border rounded" type="text" value="{{ query }}" placeholder="Find a your items here...">
+            <button style="border-radius: 15px;" class="ml-2 sm:ml-4 py-2 px-4 text-sm bg-teal-500 text-white rounded">Search</button>
+        </form>
+    </div>
+
+
     <h2 class="mb-12 text-2xl text-center"><b style="font-size: 20px;">Newest items</b></h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-2">
