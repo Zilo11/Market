@@ -94,9 +94,11 @@ WSGI_APPLICATION = 'zilo.wsgi.application'
 #         'PORT': '6030',
 #     }
 # }
+
 DATABASES = {
     "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
+
 
 # DATABASES = {
 #     'default': {
@@ -104,6 +106,8 @@ DATABASES = {
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 #  }
+
+
 # DATABASES = {
 #     "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 # }
