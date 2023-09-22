@@ -6,11 +6,11 @@
 <div class="mt-0 px-6 py-2 bg-gray-100 rounded-xl">
     {% comment %} <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl flex justify-center items-center"> {% endcomment %}
         <form method="get" action="{% url 'item:items' %}" class="flex flex-wrap">
-           <div style=" margin: auto; ">
-            <input name="query" class="py-2 px-4 border rounded" type="text" value="{{ query }}" placeholder="Find your items here..." style="width: 300px;border-radius: 20px;">
-            <button class="ml-2 sm:ml-4 py-2 px-4 text-sm bg-teal-500 text-white rounded" style="border-radius: 20px;">Search</button>
-            </div>
-        </form>
+               <div class="w-full sm:w-auto sm:flex-grow sm:mr-4 mb-4 sm:mb-0" style="margin:auto;">
+        <input name="query" class="py-2 px-4 border rounded w-full sm:w-auto" type="text" value="{{ query }}" placeholder="Find your items here..." style="border-radius: 20px;">
+      </div>
+      <button class="py-2 px-4 text-sm bg-teal-500 text-white rounded" style="border-radius: 20px;">Search</button>
+    </form>        
 
 
     {% comment %} </div> {% endcomment %}
