@@ -7,7 +7,7 @@
     <h2 class="mb-12 text-2xl text-center">My items</h2>
 
     <div class="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-3">
-        {% for item in items %}
+        {% for item in items reversed %}
         {% if item %}
             <div>
                 <a href="{% url 'item:detail' item.id %}">
