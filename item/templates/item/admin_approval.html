@@ -1,0 +1,51 @@
+<!-- admin_approval.html -->
+{% extends 'core/base.html' %}
+
+{% block title %}Admin Approval{% endblock %}
+
+{% block content %}
+  <h2>Items to Approve</h2>
+  {% if items_to_approve %}
+    <form method="POST" action="{% url 'item:admin_approval' %}">
+      {% csrf_token %}
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Price</th>
+          <th scope="col">Approve</th>
+        </tr>
+      </thead>
+          <tbody>
+            {% for item in items_to_approve %}
+              <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td><img src="{{ item.image.url }}" alt="{{ item.name }}" width="100"></td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.price }}</td>
+                <td>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="{{ item.id }}" id="{{ item.id }}" {% if item.is_approved %}checked{% endif %}>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <center>
+              <button type="submit" class="btn btn-primary">Submit</button>
+
+      </center>
+    </form>
+  {% else %}
+    <p>No items to approve.</p>
+  {% endif %}
+{% endblock %}
+
+
