@@ -9,7 +9,7 @@ def items(request):
     query = request.GET.get('query', '')
     category_id = request.GET.get('category', 0)
     categories = Category.objects.all()
-    items = Item.objects.filter(is_sold=False)
+    items = Item.objects.filter(is_approved=True, is_sold=False)
 
     if category_id:
         items = items.filter(category_id=category_id)
@@ -24,6 +24,26 @@ def items(request):
         'category_id': int(category_id)
     })
 
+@login_required
+def admin_approval(request):
+    if not request.user.is_superuser:
+        return redirect('/')  # Redirect to home or any other appropriate page
+
+    if request.method == 'POST':
+        items_to_approve = Item.objects.filter(is_approved=False)
+        for item in items_to_approve:
+            item_id = str(item.id)
+            is_approved = request.POST.get(item_id)
+            item.is_approved = is_approved == 'on'
+            item.save()
+
+    items_to_approve = Item.objects.filter(is_approved=False)
+
+    return render(request, 'item/admin_approval.html', {
+        'items_to_approve': items_to_approve
+    })
+
+    
 def detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
     related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:3]
@@ -41,6 +61,8 @@ def new(request):
         if form.is_valid():
             item = form.save(commit=False)
             item.created_by = request.user
+            item.is_approved = False
+
             item.save()
 
             return redirect('item:detail', pk=item.id)

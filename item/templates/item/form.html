@@ -7,6 +7,16 @@
     <h1 class="text-3xl text-center font-bold text-primary mt-10">{{ title }}</h1>
 
     <div class="max-w-2xl mx-auto mt-8 rounded-lg shadow-md p-6">
+
+    {% if request.user.is_superuser %}
+    <p>{{user.username}} is a super user </p>
+    {% elif request.user.is_authenticated %}
+    <p>{{user.username}} is a normal user</p>
+    {% else %}
+    <p>Unkown user </p>
+    {% endif %}
+
+
         <form method="post" action="." enctype="multipart/form-data" class="space-y-6">
             {% csrf_token %}
 
