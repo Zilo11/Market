@@ -5,6 +5,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import NewItemForm, EditItemForm
 from .models import Category, Item
 
+from django.contrib import messages
+
 def items(request):
     query = request.GET.get('query', '')
     category_id = request.GET.get('category', 0)
@@ -64,7 +66,8 @@ def new(request):
             item.is_approved = False
 
             item.save()
-
+            messages.success(request,'Thank you! Your Product is under review by the administrators, You shall see it in the platform soon')
+            
             return redirect('item:detail', pk=item.id)
     else:
         form = NewItemForm()
