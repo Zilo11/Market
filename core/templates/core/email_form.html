@@ -130,7 +130,7 @@
                         {% for user in users %}
                             <div class="flex items-center">
                                 <input type="checkbox" name="selected_users" value="{{ user.id }}" id="user-{{ user.id }}" class="mr-2">
-                                <label for="user-{{ user.id }}">{{ user.username }}</label>
+                                <label for="user-{{ user.id }}">{{ user.username }} {{user.email}} {{user.phone}}</label>
                             </div>
                         {% endfor %}
                     </div>

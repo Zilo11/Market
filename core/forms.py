@@ -25,6 +25,14 @@ class SignupForm(UserCreationForm):
         'placeholder': 'Your email address',
         'class': 'w-full py-4 px-6 rounded-xl'
     }))
+    phone = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Your phone number with country code',
+            'class': 'w-full py-4 px-6 rounded-xl'
+        }),
+        max_length=20, 
+        help_text='Enter your phone number in the format:+2376XXXXXXXX'
+    )
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={
         'placeholder': 'Your password',
         'class': 'w-full py-4 px-6 rounded-xl'
