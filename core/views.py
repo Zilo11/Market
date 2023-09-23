@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 
 from item.models import Category, Item
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 
 from .forms import SignupForm
@@ -44,3 +45,25 @@ def signup(request):
 def sign_out(request):
     logout(request)
     return redirect('/')
+
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .email_utils import send_mail
+
+def email_form(request):
+    if request.method == 'POST':
+        subject = request.POST['subject']
+        body = request.POST['body']
+        selected_users = request.POST.getlist('selected_users')
+        
+        users = User.objects.filter(pk__in=selected_users)
+        
+        for user in users:
+            send_mail(subject, body, user.email)
+        
+        messages.success(request, "Emails sent successfully")
+        return redirect('/email_form/')
+    
+    users = User.objects.all()
+    return render(request, 'core/email_form.html', {'users': users})

@@ -3,6 +3,7 @@ from django.urls import path
 
 from . import views
 from .forms import LoginForm
+from .views import email_form
 
 app_name = 'core'
 
@@ -15,4 +16,7 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('login/', auth_views.LoginView.as_view(template_name='core/login.html', authentication_form=LoginForm), name='login'),
     path('logout/',views.sign_out,name='logout'),
+    
+    path('send-email/', email_form, name='send_email'),
+
 ]

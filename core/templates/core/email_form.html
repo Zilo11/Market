@@ -1,0 +1,146 @@
+<!doctype html> 
+<html> 
+    <head> 
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+<!-- Bootstrap JavaScript (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <title>{% block title %}{% endblock %} |Zilo </title>
+    
+        <style>
+            html {
+                position: relative;
+                min-height: 100%;
+            }
+    
+            body {
+                margin-bottom: 100px;
+            }
+    
+            footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 100px;
+                background-color: #333;
+                color: #fff;
+                padding: 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-family: Arial, sans-serif;
+            }
+    
+            footer a {
+                color: #fff;
+                text-decoration: none;
+                font-weight: bold;
+                margin-right: 20px;
+            }
+    
+            footer a:hover {
+                color: #00bfa6;
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <nav class="py-6 px-1 flex justify-between items-center border-b border-gray-200">
+            {% comment %} <a href="/" class="text-xl font-semibold">PostMarket</a> {% endcomment %}
+            <div style="position: relative; display: inline-block;" class="py--3">
+                <a href="/"><span style="font-family: 'Arial', sans-serif; font-size: 24px; font-weight: bold; color:#00bfa6; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); letter-spacing: 2px;">Post</span>
+                <span style="position: absolute; bottom: : -10px; left: 30px; font-family: 'Arial', sans-serif; font-size: 24px; font-weight: bold;padding-top: 15px;  color:  #ff9900;">Market</span></a>
+              </div>
+
+
+            <div class="space-x-6">
+                
+                {% if request.user.is_authenticated %}
+                <div class="flex space-x-4    ">
+                    <a href="{% url 'conversation:inbox' %}" class="px-4 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-blue-700">Inbox</a>
+                    <a href="{% url 'dashboard:index' %}" class="px-4 py-3 text-lg font-semibold bg-green-500 text-white rounded-xl hover:bg-green-700">My Products</a>
+                </div><br>
+                <a href="{% url 'item:new' %}" class="text-lg font-semibold hover:text-gray-500">Add item</a>
+                <a href="{% url 'item:items' %}" class="text-lg font-semibold hover:text-gray-500">Browse </a>
+                {% else %}
+                <a href="{% url 'core:signup' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign up</a>
+                <a href="{% url 'core:login' %}" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Log in</a>
+                {% endif %}
+            </div>
+        </nav>
+    
+        <div class="px-6 py-6">
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
+    
+    .container {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .form-container {
+        width: 100%;
+        max-width: 400px;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .user-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 10px;
+    }
+
+    .user-container > div {
+        display: list-item;
+        list-style-type: none;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="form-container">
+            <form method="post" action="{% url 'core:send_email' %}" class="my-4">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="subject" class="block">Subject:</label>
+                    <input type="text" name="subject" id="subject" class="border border-gray-300 rounded px-2 py-1">
+                </div>
+
+                <div class="mb-4">
+                    <label for="body" class="block">Body:</label>
+                    <textarea name="body" id="body" class="border border-gray-300 rounded px-2 py-1"></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label for="selected_users" class="block">Select Users:</label>
+                    <div class="user-container">
+                        {% for user in users %}
+                            <div class="flex items-center">
+                                <input type="checkbox" name="selected_users" value="{{ user.id }}" id="user-{{ user.id }}" class="mr-2">
+                                <label for="user-{{ user.id }}">{{ user.username }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <input type="submit" value="Send Email" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+</div>
+<br><br>  <br>  
