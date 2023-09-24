@@ -17,6 +17,11 @@ sqlparse
 tzdata
 virtualenv
 psycopg2
+pywhatkit
 whitenoise
 dj_database_url
 channels
+uvicorn[standard]
+uvloop
+watchfiles
+websockets

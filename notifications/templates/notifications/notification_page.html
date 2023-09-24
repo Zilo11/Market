@@ -1,0 +1,54 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ item.name }}{% endblock %}
+
+{% block content %}
+
+<div id="notification">
+    <div id="notifications">
+        <button id="notificationBell" class="notification-bell">
+          <!-- Add your bell icon here -->
+          <i class="fas fa-bell"></i>
+        </button>
+      </div>
+
+<script>
+    const websocketProtocol = window.location.protocol === "https:"? "wss":"ws";
+    const wsEndpoint = `${websocketProtocol}://${window.location.host}/ws/notifications/`;
+    const socket = new WebSocket(wsEndpoint);
+    
+//new event listener to capture incoming messages
+
+socket.addEventListener("message",(event) =>{
+    const messageData = JSON.parse(event.data);
+    console.log("Received notification:",messageData.message)
+    showNotification(messageData.message);
+});
+function showNotification(notificationHTML){
+    const notificationContainer = document.getElementById("notification");
+
+    // Create a new alert
+    const alertDiv = document.createElement("div");
+    alertDiv.classList.add("alert","alert-dismissible","alert-primary","fade","show","mb-0");
+    alertDiv.setAttribute("role","alert");
+    alertDiv.innerHTML = notificationHTML;
+
+    //Create the close button
+    const closeButton = document.createElement("button")
+    closeButton.setAttribute("type","button");
+    closeButton.classList.add("btn-close");
+    closeButton.setAttribute("aria-label","Close");
+    alertDiv.appendChild(closeButton);
+
+    notificationContainer.appendChild(alertDiv);
+    };
+    socket.onopen = (event) => {
+        console.log("WebSocket coonnection opened");
+    };
+
+    socket.onclose = (event) => {
+        console.log("Websocket coonnection cloased")
+    };
+</script>
+</div>
+{% endblock %}

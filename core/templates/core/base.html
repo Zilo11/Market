@@ -47,6 +47,68 @@
                 color: #00bfa6;
                 text-decoration: underline;
             }
+            .alert {
+                border: 1px solid #ccc;
+                padding: 10px;
+                margin-bottom: 10px;
+                border-radius: 4px;
+              }
+              
+              .alert-dismissible {
+                position: relative;
+              }
+              
+              .alert-primary {
+                background-color: #007bff;
+                color: #fff;
+              }
+              
+              .fade {
+                opacity: 1;
+                transition: opacity 0.3s ease-in-out;
+              }
+              
+              .show {
+                opacity: 1;
+              }
+              
+              .mb-0 {
+                margin-bottom: 0;
+              }
+              .notification-bell {
+                position: relative;
+                background: none;
+                border: none;
+                cursor: pointer;
+              }
+              
+              .notification-count {
+                position: absolute;
+                top: -5px;
+                right: -5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 20px;
+                height: 20px;
+                background-color: red;
+                color: white;
+                font-size: 12px;
+                border-radius: 50%;
+              }
+              
+              .notification-container {
+                position: absolute;
+                top: 30px; /* Adjust the vertical position as needed */
+                right: 10px; /* Adjust the horizontal position as needed */
+                width: 300px; /* Adjust the width as needed */
+                background-color: #fff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                border-radius: 4px;
+                display: none;
+                padding: 10px;
+                z-index: 9999;
+              }
         </style>
     </head>
     
@@ -60,18 +122,20 @@
 
 
             <div class="space-x-6">
-                
                 {% if request.user.is_authenticated %}
                 <div class="flex space-x-4    ">
+                    
                     <a href="{% url 'conversation:inbox' %}" class="px-4 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-blue-700">Inbox</a>
                     <a href="{% url 'dashboard:index' %}" class="px-4 py-3 text-lg font-semibold bg-green-500 text-white rounded-xl hover:bg-green-700">My Products</a>
                 </div><br>
+                
                 <a href="{% url 'item:new' %}" class="text-lg font-semibold hover:text-gray-500">Add item</a>
                 <a href="{% url 'item:items' %}" class="text-lg font-semibold hover:text-gray-500">Browse </a>
                 {% else %}
                 <a href="{% url 'core:signup' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign up</a>
                 <a href="{% url 'core:login' %}" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Log in</a>
                 {% endif %}
+                
             </div>
         </nav>
     
