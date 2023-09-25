@@ -4,21 +4,31 @@
 
 {% block content %}
 <div class="mt-0 px-6 py-2 bg-gray-100 rounded-xl">
-    {% comment %} <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl flex justify-center items-center"> {% endcomment %}
-        <form method="get" action="{% url 'item:items' %}" class="flex flex-wrap">
-             <div class="w-full sm:w-auto sm:flex-grow sm:mr-4 mb-4 sm:mb-0">
-    <input name="query" class="py-2 px-4 border rounded w-full sm:w-auto" type="text" value="{{ query }}" placeholder="Find your items here..." style="border-radius: 20px;">
-  </div>
-  <button class="py-2 px-4 text-sm bg-teal-500 text-white rounded" style="border-radius: 20px;">Search</button>
-</form>        
+    <div class="flex justify-center items-center">
+    
+    {% if user.is_authenticated %}
+        <marquee>
+        <h2 class="text-2xl text-center mt-5">
+            <b class="text-3xl lg:text-4xl"><b>Welcome</b>, {{ user.username }}!</b>
+         </h2>
+        <p class="text-lg text-center mt-3">Thank you for choosing PostMarket. Start exploring latest items and find great deals!</p>
+    </marquee>
 
+    {% endif %}
+    </div>
 
-    {% comment %} </div> {% endcomment %}
+    <form method="get" action="{% url 'item:items' %}" class="flex flex-wrap mt-6">
+        <div class="w-full sm:w-auto sm:flex-grow sm:mr-4 mb-4 sm:mb-0">
+            <input name="query" class="py-2 px-4 border rounded w-full sm:w-auto" type="text" value="{{ query }}" placeholder="Find your items here..." style="border-radius: 20px;">
+        </div>
+        <button class="py-2 px-4 text-sm bg-teal-500 text-white rounded" style="border-radius: 20px;">Search</button>
+    </form>
+
     <h2 class="mb-12 text-2xl text-center mt-5"><b class="text-3xl lg:text-4xl">Newest items</b></h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-2">
-{% for item in items|slice:":15" reversed %}
-        <div class="flex flex-col items-center mb-4"> <!-- Added margin-bottom  so as to have space between my text and the upper one-->
+        {% for item in items|slice:":15" reversed %}
+        <div class="flex flex-col items-center mb-4">
             <a href="{% url 'item:detail' item.id %}">
                 <div class="w-full max-w-xs">
                     <img src="{{ item.image.url }}" class="object-cover w-full h-64 rounded-t-xl" style="width: 400px;">
@@ -48,7 +58,7 @@
         {% for category in categories %}
         <div>
             <a href="{% url 'item:items' %}?query={{ query }}&category={{ category.id }}">
-            <div class="p-6 bg-white rounded-b-xl">
+                <div class="p-6 bg-white rounded-b-xl">
                     <h2 class="text-xl lg:text-2xl">{{ category.name }}</h2>
                     <p class="text-gray-500">{{ category.items.count }} items</p>
                 </div>
