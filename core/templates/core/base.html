@@ -1,57 +1,117 @@
-<!doctype html> 
-<html> 
-    <head> 
-        <meta charset="utf-8"> 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-        <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<!doctype html>
+<html>
 
-<!-- Bootstrap JavaScript (optional) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <title>{% block title %}{% endblock %} |Zilo </title>
-    
-        <style>
-            html {
-                position: relative;
-                min-height: 100%;
-            }
-    
-            body {
-                margin-bottom: 100px;
-            }
-    
-            footer {
-                position: absolute;
-                bottom: 0;
-                width: 100%;
-                height: 100px;
-                background-color: #333;
-                color: #fff;
-                padding: 20px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                font-family: Arial, sans-serif;
-            }
-    
-            footer a {
-                color: #fff;
-                text-decoration: none;
-                font-weight: bold;
-                margin-right: 20px;
-            }
-    
-            footer a:hover {
-                color: #00bfa6;
-                text-decoration: underline;
-            }
-        </style>
-    </head>
-    
-    <body>
-        <nav class="py-6 px-1 flex justify-between items-center border-b border-gray-200">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- Bootstrap JavaScript (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>{% block title %}{% endblock %} | Zilo</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+
+        body {
+            margin-bottom: 100px;
+        }
+
+        footer {
+            display: none; /* Initially hide the footer */
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 20px 0; /* Adjust padding as desired */
+            background-color: #333;
+            font-family: Arial, sans-serif;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 0 10px;
+        }
+
+        .footer-links a:hover {
+            color: #00bfa6;
+            text-decoration: underline;
+        }
+
+        .social-links {
+            margin-bottom: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border-radius: 50%;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border-radius: 50%;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+        }
+        
+        .social-links a:hover {
+            background-color: #00bfa6;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .powered-by {
+            font-size: 14px;
+            color: #ff9900;
+        }
+
+        .powered-by a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="py-6 px-1 flex justify-between items-center border-b border-gray-200">
             {% comment %} <a href="/" class="text-xl font-semibold">PostMarket</a> {% endcomment %}
             <div style="position: relative; display: inline-block;" class="py--3">
                 <a href="/"><span style="font-family: 'Arial', sans-serif; font-size: 24px; font-weight: bold; color:#00bfa6; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); letter-spacing: 2px;">Post</span>
@@ -75,30 +135,48 @@
             </div>
         </nav>
     
-        <div class="px-6 py-6">
-            {% block content %}
-            {% endblock %}
-            <br>
+    <div class="px-6 py-6">
+        {% block content %}
+        {% endblock %}
+        <br>
+    </div>
+    
+    <footer class="footer bg-dark text-white text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="footer-links">
+                    <a href="{% url 'core:about' %}" class="text-lg text-white hover:text-teal-500">About</a>
+                    <a href="{% url 'core:contact' %}" class="text-lg text-white hover:text-teal-500">Contact</a>
+                    <a href="{% url 'core:privacy_policy' %}" class="text-lg text-white hover:text-teal-500">Privacy Policy</a>
+                </div>
+            </div>
         </div>
-    <br><br>  <br>  
-        <footer>
-            <div class="w-2/3 pr-10">
-                <h3 class="mb-5 font-semibold text-gray-400"></h3>
-    
+        <div class="row">
+            <div class="col-md-12">
+                <div class="footer-content">
+                    <p class="mt-2">Powered by <a href="https://zilotechs.com" style="font-family: 'Arial', sans-serif; font-size: 20px; font-weight: bold; color: #00bfa6;" class="powered-by">Zilo</a></p>
+                </div>
             </div>
-    
-            <span class="w-1/3 flex justify-end">
-                <div class="flex space-x-5">
-                <a href="{% url 'core:about' %}"class="text-lg hover:text-teal-500">About</a>
-                <a href="{% url 'core:contact' %}" class="text-lg hover:text-teal-500">Contact</a>
-                <a href="{% url 'core:privacy_policy' %}" class="text-lg hover:text-teal-500">Privacy policy</a>
-                    {% comment %} <li><a href="{% url 'core:termsAndConditions' %}" class="text-lg hover:text-teal-500" >Terms of use</a></li> {% endcomment %}
-                </span>
-            </div>
-        </footer>
+        </div>
+    </div>
+</footer>
 
 
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-    </body>
-    </html>
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+    <script>
+        window.addEventListener('scroll', function () {
+            var footer = document.querySelector('footer');
+            var scrollPosition = window.innerHeight + window.pageYOffset;
+            var bodyHeight = document.body.offsetHeight;
+
+            if (scrollPosition >= bodyHeight) {
+                footer.style.display = 'flex';
+            } else {
+                footer.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>
