@@ -36,6 +36,7 @@
 
                         <ul>
                             {% for category in categories %}
+                            
                                 <li class="py-2 px-2 rounded-xl{% if category.id == category_id %} bg-gray-200{% endif %}">
                                     <a href="{% url 'item:items' %}?query={{ query }}&category={{ category.id }}">{{ category.name }}</a>
                                 </li>
@@ -55,9 +56,12 @@
                 {% for item in items reversed %}
                     <div class="w-full md:w-auto">
                         <a href="{% url 'item:detail' item.id %}">
+                            {% if item.image %}
                             <div>
                                 <img style="height: 290px; width: 400px;" src="{{ item.image.url }}" class="rounded-t-xl">
                             </div>
+                            {% endif %}
+                            
     
                             <div class="p-6 bg-white rounded-b-xl">
                                 <h2 class="text-2xl">{{ item.name }}</h2>
