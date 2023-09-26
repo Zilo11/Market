@@ -24,7 +24,10 @@
             {% for item in items_to_approve %}
               <tr>
                 <th scope="row">{{forloop.counter}}</th>
+                {% if image_url %}
                 <td><img src="{{ item.image.url }}" alt="{{ item.name }}" width="100"></td>
+               
+                {% endif %}
                 <td>{{ item.name }}</td>
                 <td>{{ item.description }}</td>
                 <td>{{ item.price }}</td>
