@@ -12,7 +12,7 @@ Author: Nyuydine Bill leynyuy <billleynyuy@gmail.com>
 Date:   Sun Sep 17 02:48:03 2023 +0100
 
      Related items removed from grid view to allow items align downward, also currency changed to FCFA
-
+##
 [33mcommit a42330bb9e4f21f11849b261549ce3ada09f3548[m
 Merge: b45c9a4 ea570d9
 Author: Nyuydine Bill leynyuy <121938133+NyuydineBill@users.noreply.github.com>
