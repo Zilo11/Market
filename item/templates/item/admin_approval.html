@@ -4,51 +4,53 @@
 {% block title %}Admin Approval{% endblock %}
 
 {% block content %}
-  <h2>Items to Approve</h2>
+<div class="container">
+  <h2><center style="font">Items to Approve</center></h2>
   {% if items_to_approve %}
     <form method="POST" action="{% url 'item:admin_approval' %}">
       {% csrf_token %}
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Image</th>
-          <th scope="col">Name</th>
-          <th scope="col">Description</th>
-          <th scope="col">Price</th>
-          <th scope="col">Approve</th>
-        </tr>
-      </thead>
-          <tbody>
-            {% for item in items_to_approve %}
-              <tr>
-                <th scope="row">{{forloop.counter}}</th>
-                {% if item.image %}
+      <table class="table mt-5">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Price</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in items_to_approve %}
+            <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              {% if item.image %}
                 <td><img src="{{ item.image.url }}" alt="{{ item.name }}" width="100"></td>
-               
-                {% endif %}
-                <td>{{ item.name }}</td>
-                <td>{{ item.description }}</td>
-                <td>{{ item.price }}</td>
-                <td>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="{{ item.id }}" id="{{ item.id }}" {% if item.is_approved %}checked{% endif %}>
-                  </div>
-                </td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
+              {% endif %}
+              <td>{{ item.name }}</td>
+              <td style="white-space: normal;">{{ item.description }}</td>
+              <td>{{ item.price }}</td>
+              <td>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="action_{{ item.id }}" id="approve_{{ item.id }}" value="approve">
+                  <label class="form-check-label" for="approve_{{ item.id }}">Approve</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="action_{{ item.id }}" id="delete_{{ item.id }}" value="delete">
+                  <label class="form-check-label" for="delete_{{ item.id }}">Delete</label>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
       <center>
-              <button type="submit" class="btn btn-primary">Submit</button>
-
+        <button type="submit" class="btn btn-primary">Submit</button>
       </center>
     </form>
   {% else %}
     <p>No items to approve.</p>
   {% endif %}
+</div>
 {% endblock %}
-
-

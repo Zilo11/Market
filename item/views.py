@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import NewItemForm, EditItemForm
 from .models import Category, Item
-
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 
 def items(request):
@@ -26,6 +26,7 @@ def items(request):
         'category_id': int(category_id)
     })
 
+
 @login_required
 def admin_approval(request):
     if not request.user.is_superuser:
@@ -35,9 +36,13 @@ def admin_approval(request):
         items_to_approve = Item.objects.filter(is_approved=False)
         for item in items_to_approve:
             item_id = str(item.id)
-            is_approved = request.POST.get(item_id)
-            item.is_approved = is_approved == 'on'
-            item.save()
+            action = request.POST.get('action_' + item_id)
+            
+            if action == 'approve':
+                item.is_approved = True
+                item.save()
+            elif action == 'delete':
+                item.delete()
 
     items_to_approve = Item.objects.filter(is_approved=False)
 
@@ -45,7 +50,8 @@ def admin_approval(request):
         'items_to_approve': items_to_approve
     })
 
-    
+            
+
 def detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
     related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:3]
@@ -98,14 +104,14 @@ def edit(request, pk):
 
 @login_required
 def delete(request, pk):
-    item = get_object_or_404(Item, pk=pk, created_by=request.user)
-    item.delete()
+    item = get_object_or_404(Item, pk=pk)
+    
+    if request.user == item.created_by or request.user.is_superuser:
+        item.delete()
 
-    return redirect('dashboard:index')
+    return redirect('core:index')
 
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Category, Item, Review
-from .forms import ReviewForm
+
 
 def item_detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
