@@ -11,19 +11,32 @@
         <a href="{% url 'conversation:detail' conversation.id %}">
             <div class="p-6 flex bg-gray-100 rounded-xl">
                 <div class="pr-6">
-                    <img src="{{ conversation.item.image.url }}" class="w-20 rounded-xl">
+                    <img src="{{ conversation.item.image.url }}" class="w-20 rounded-full">
                 </div>
 
                 <div>
-                    {% for member in conversation.members.all %}
-                        {% if member != request.user %}
-                            <p class="mb-4"><strong>{{ member.username }}</strong> | {{ conversation.modified_at }}</p>
-                            <p>{{ conversation.item.name }}</p>
-                        {% endif %}
-                    {% endfor %}
+                    <div class="flex flex-col space-y-2">
+                        <div class="flex justify-between">
+                            <div>
+                                <strong>{{ conversation.members.0.username }}</strong>
+                                <span class="text-sm text-gray-500">{{ conversation.modified_at }}</span>
+                            </div>
+                            <div>
+                                <strong>{{ conversation.members.1.username }}</strong>
+                                <span class="text-sm text-gray-500">{{ conversation.modified_at }}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="mb-1 text-gray-500">{{ conversation.item.name }}</p>
+                            <p class="text-gray-500">Last message: {{ conversation.last_message.content }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </a><br>
     {% endfor %}
 </div><br>
+
+<div class="mt-5">.</div>
+<br>
 {% endblock %}
