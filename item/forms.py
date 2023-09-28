@@ -7,7 +7,7 @@ INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border'
 class NewItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ('category', 'name', 'description', 'price','location', 'image',)
+        fields = ('category', 'name', 'description', 'price','location', 'quantity', 'image',)
         widgets = {
             'category': forms.Select(attrs={
                 'class': INPUT_CLASSES
@@ -22,8 +22,15 @@ class NewItemForm(forms.ModelForm):
                 'class': INPUT_CLASSES
             }),
             'location': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
+                'class': INPUT_CLASSES,
+                'placeholder': 'Enter the town where the product Available for sale'
             }),
+
+            'quantity': forms.TextInput(attrs={
+                'class': INPUT_CLASSES,
+                'placeholder': 'How many items are in stock ?.'
+            }),
+
             'image': forms.FileInput(attrs={
                 'class': INPUT_CLASSES
             })
