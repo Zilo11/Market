@@ -95,7 +95,7 @@
             <div>
                 <a href="{% url 'item:detail' item.id %}">
                     <div>
-                        {% if image_url %}
+                        {% if item.image %}
                         <img src="{{ item.image.url }}" style="" class="rounded-t-xl">
                         {% endif %}
                         <h2 class="text-2xl">{{ item.name }}</h2>
