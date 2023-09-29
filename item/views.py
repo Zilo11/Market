@@ -3,9 +3,12 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import NewItemForm, EditItemForm
-from .models import Category, Item
+from .models import Category, Item, FavoriteItem
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
+from django.http import JsonResponse
+
+
 
 def items(request):
     query = request.GET.get('query', '')
@@ -26,6 +29,26 @@ def items(request):
         'category_id': int(category_id)
     })
 
+
+@login_required
+def add_to_favorite(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    user = request.user
+
+    favorite_list, created = FavoriteItem.objects.get_or_create(user=user)
+    favorite_list.items.add(item)
+
+    return JsonResponse({'message': 'Item added to favorites successfully'})
+
+@login_required
+def remove_from_favorite(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    user = request.user
+
+    favorite_list = FavoriteItem.objects.get(user=user)
+    favorite_list.items.remove(item)
+
+    return JsonResponse({'message': 'Item removed from favorites successfully'})
 
 @login_required
 def admin_approval(request):

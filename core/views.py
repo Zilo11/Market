@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from item.models import Category, Item
+from item.models import Category, Item, FavoriteItem
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -10,11 +10,13 @@ from django.contrib.auth import logout,login
 
 def index(request):
     items = Item.objects.filter(is_approved=True, is_sold=False)[0:12]
+    favorite = FavoriteItem.objects.all()
     categories = Category.objects.all()
 
     return render(request, 'core/index.html', {
         'categories': categories,
         'items': items,
+        'favorite': favorite,
     })
 
 def contact(request):

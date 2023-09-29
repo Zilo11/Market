@@ -16,7 +16,21 @@
    
     {% if item.image %}
     <div class="md:col-span-3">
-        <img src="{{ item.image.url }}" class="rounded-xl">
+
+        
+        <div class="md:col-span-3">
+    <div class="d-flex flex-wrap align-items-center">
+        <img src="{{ item.image.url }}" class="rounded-xl mb-3 mb-md-0">
+    </div>
+
+    
+</div>
+        {% if item_in_favorite %}
+            <a href="{% url 'item:add_to_favorite' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl">Add this item to Favorite</a>
+        {% else %}
+            <a href="{% url 'item:remove_from_favorite' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl">Add this item to Favorite</a>
+        {% endif %}
+
         {% endif %}
         <div class="p-6 bg-gray-100 rounded-xl mt-6">
             <h1 class="mb-6 text-3xl">{{ item.name }}</h1>
@@ -77,6 +91,8 @@
     <a href="{% url 'item:delete' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl">Delete</a>
   </div>
 {% else %}
+
+    <br>
   <a href="{% url 'conversation:new' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Contact seller</a>
   <br><br>
 {% endif %}
@@ -95,9 +111,9 @@
             <div>
                 <a href="{% url 'item:detail' item.id %}">
                     <div>
-                        {% if image_url %}
+                        {% comment %} {% if image_url %} {% endcomment %}
                         <img src="{{ item.image.url }}" style="" class="rounded-t-xl">
-                        {% endif %}
+                        {% comment %} {% endif %} {% endcomment %}
                         <h2 class="text-2xl">{{ item.name }}</h2>
                         <p class="text-gray-500">Price:FCFA {{ item.price }}</p>
                     </div>

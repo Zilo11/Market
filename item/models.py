@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -30,6 +31,14 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+class FavoriteItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    items = models.ManyToManyField(Item)
+
+    def __str__(self):
+        return f"{self.user.username}'s favorite items"
+
 
 class Review(models.Model):
     RATING_CHOICES = (

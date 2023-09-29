@@ -25,22 +25,13 @@
     </form>
 
     <h2 class="mb-12 text-2xl text-center mt-5"><b class="text-3xl lg:text-4xl">NEWEST ITEMS</b></h2>
-=======
-    <form method="get" action="{% url 'item:items' %}" class="flex flex-wrap mt-6">
-        <div class="w-full sm:w-auto sm:flex-grow sm:mr-4 mb-4 sm:mb-0">
-            <input name="query" class="py-2 px-4 border rounded w-full sm:w-auto" type="text" value="{{ query }}" placeholder="Find your items here..." style="border-radius: 20px;">
-        </div>
-        <button class="py-2 px-4 text-sm bg-teal-500 text-white rounded" style="border-radius: 20px;">Search</button>
-    </form>
-
-    <h2 class="mb-12 text-2xl text-center mt-5"><b class="text-3xl lg:text-4xl">Newest items</b></h2>
->>>>>>> 464c4a372ea8198b9e7d8f88500f162c739d9a18
-
+ 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-2">
 
-{% for item in items|slice:":15" reversed %}
-        {% if item.image %}
-        <div class="flex flex-col items-center mb-4"> <!-- Added margin-bottom  so as to have space between my text and the upper one-->
+  
+        {% for item in items|slice:":15" reversed %}
+    {% if item.image %}
+        <div class="flex flex-col items-center mb-4">
             <a href="{% url 'item:detail' item.id %}">
                 <div class="w-full max-w-xs">
                     <img src="{{ item.image.url }}" class="object-cover w-full h-64 rounded-t-xl" style="width: 400px;">
@@ -51,6 +42,11 @@
                     <h2 class="text-xl lg:text-2xl">{{ item.name }}</h2>
                 </a>
                 <p class="text-gray-500">Price: FCFA {{ item.price }}</p>
+                {% for fav_item in favorite %}
+                    {% if item in fav_item.items.all %}
+                        <span class="bi bi-star-fill text-warning fs-5"></span>
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
         {% endif %}
