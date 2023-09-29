@@ -35,7 +35,8 @@ class Item(models.Model):
 class FavoriteItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     items = models.ManyToManyField(Item)
-
+    counter = models.IntegerField(default=1)
+    
     def __str__(self):
         return f"{self.user.username}'s favorite items"
 

@@ -29,14 +29,21 @@ def items(request):
         'category_id': int(category_id)
     })
 
-
 @login_required
 def add_to_favorite(request, pk):
     item = get_object_or_404(Item, pk=pk)
     user = request.user
 
     favorite_list, created = FavoriteItem.objects.get_or_create(user=user)
+    if item in favorite_list.items.all():
+        return JsonResponse({'message': 'Item already in favorites'})
+
+    if favorite_list.counter >= 5:
+        return JsonResponse({"message": "Maximum number of items reached"})
+    
     favorite_list.items.add(item)
+    favorite_list.counter += 1
+    favorite_list.save()
 
     return JsonResponse({'message': 'Item added to favorites successfully'})
 
@@ -45,11 +52,23 @@ def remove_from_favorite(request, pk):
     item = get_object_or_404(Item, pk=pk)
     user = request.user
 
-    favorite_list = FavoriteItem.objects.get(user=user)
+    try:
+        favorite_list = FavoriteItem.objects.get(user=user)
+    except FavoriteItem.DoesNotExist:
+        return JsonResponse({'message': 'FavoriteItem does not exist'})
+
+    if item not in favorite_list.items.all():
+        return JsonResponse({'message': 'Item not found in favorites'})
+    
+    if favorite_list.counter <= 0:
+        return JsonResponse({"message": "Minimum number of elements reached"})
+
     favorite_list.items.remove(item)
+    favorite_list.counter -= 1
+    favorite_list.save()
+    return redirect('/')
 
-    return JsonResponse({'message': 'Item removed from favorites successfully'})
-
+    
 @login_required
 def admin_approval(request):
     if not request.user.is_superuser:

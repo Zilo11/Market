@@ -8,15 +8,22 @@ from django.contrib.auth.models import User
 from .forms import SignupForm
 from django.contrib.auth import logout,login
 
+
 def index(request):
     items = Item.objects.filter(is_approved=True, is_sold=False)[0:12]
-    favorite = FavoriteItem.objects.all()
+    
+    favorite = FavoriteItem.objects.none()
+    if request.user.is_authenticated:
+        favorite = FavoriteItem.objects.filter(user=request.user)
+        favorite_counter = favorite.first().counter
+
     categories = Category.objects.all()
 
     return render(request, 'core/index.html', {
         'categories': categories,
         'items': items,
         'favorite': favorite,
+        'favorite_counter': favorite_counter
     })
 
 def contact(request):
