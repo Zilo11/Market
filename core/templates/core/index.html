@@ -25,6 +25,16 @@
     </form>
 
     <h2 class="mb-12 text-2xl text-center mt-5"><b class="text-3xl lg:text-4xl">NEWEST ITEMS</b></h2>
+=======
+    <form method="get" action="{% url 'item:items' %}" class="flex flex-wrap mt-6">
+        <div class="w-full sm:w-auto sm:flex-grow sm:mr-4 mb-4 sm:mb-0">
+            <input name="query" class="py-2 px-4 border rounded w-full sm:w-auto" type="text" value="{{ query }}" placeholder="Find your items here..." style="border-radius: 20px;">
+        </div>
+        <button class="py-2 px-4 text-sm bg-teal-500 text-white rounded" style="border-radius: 20px;">Search</button>
+    </form>
+
+    <h2 class="mb-12 text-2xl text-center mt-5"><b class="text-3xl lg:text-4xl">Newest items</b></h2>
+>>>>>>> 464c4a372ea8198b9e7d8f88500f162c739d9a18
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-2">
 
