@@ -1,6 +1,5 @@
-from django.contrib.auth import views as auth_views
 from django.urls import path
-
+from django.contrib.auth import views as auth_views
 from . import views
 from .forms import LoginForm
 from .views import email_form
@@ -18,5 +17,10 @@ urlpatterns = [
     path('logout/',views.sign_out,name='logout'),
     
     path('send-email/', email_form, name='send_email'),
-
+    
+    #Password reset
+#     path('reset_password/',auth_views.PasswordResetView.as_view(),name='reset_password'),
+#     path('password_reset_done/',auth_views.PasswordResetDoneView.as_view(), name ="password_reset_done"),
+#     path('password_reset_confirm/', auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
+#     path('password_reset_complete/',auth_views.PasswordResetCompleteView.as_view(),name='password_reset_complete'),
 ]

@@ -36,6 +36,7 @@ LOGOUT_REDIRECT_URL = '/'
 # Application definition
 
 INSTALLED_APPS = [
+    'core',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'conversation',
     'channels',
-    'core',
     'dashboard',
     'item',
 ]
@@ -64,7 +64,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'zilopostmarketer@gmail.com'  
+EMAIL_HOST_USER = 'zilopostmarket@gmail.com'  
 EMAIL_HOST_PASSWORD = 'wnib jpua jhps pxfx'  
 
 ROOT_URLCONF = 'zilo.urls'
