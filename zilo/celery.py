@@ -11,7 +11,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'zilo.settings')
 
 app = Celery('zilo')
 app.conf.enable_utc = False
-app.conf.update(timezone='Asia/Kolkata')
+app.conf.update(timezone='UTF-8')
 
 app.config_from_object(settings, namespace='CELERY')
 
