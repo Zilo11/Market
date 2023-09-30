@@ -3,6 +3,9 @@ from django.shortcuts import render, redirect
 from item.models import Category, Item
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from channels.layers import get_channel_layer
+import json 
+from django.http import HttpResponse
 
 
 from .forms import SignupForm
@@ -15,7 +18,21 @@ def index(request):
     return render(request, 'core/index.html', {
         'categories': categories,
         'items': items,
+        'room_name': "broadcast",
     })
+
+from asgiref.sync import async_to_sync
+
+def test(request):
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        "notification_broadcast",
+        {
+            'type': 'send_notification',
+            'message': json.dumps("Notification")
+        }
+    )
+    return HttpResponse("Done")
 
 def contact(request):
     return render(request, 'core/contact.html')

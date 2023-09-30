@@ -8,6 +8,7 @@ app_name = 'core'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('test/', views.test, name='test'),
     path('contact/', views.contact, name='contact'),
     path('about/', views.about, name='about'),
     path('termsAndConditions/', views.termsAndConditions, name='termsAndConditions'),
