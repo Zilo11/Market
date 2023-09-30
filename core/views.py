@@ -29,12 +29,7 @@ def index(request):
     return render(request, 'core/index.html', {
         'categories': categories,
         'items': items,
-<<<<<<< HEAD
-        'favorite': favorite,
-        'favorite_counter': favorite_counter
-=======
         'room_name': "broadcast",
->>>>>>> main
     })
 
 from asgiref.sync import async_to_sync
