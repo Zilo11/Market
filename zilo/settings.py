@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'channels',
     'dashboard',
     'item',
-    'notifications',
+    'notifications_app',
     'django_celery_beat',
     'django_celery_results',
 ]
@@ -83,6 +83,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
+                
+                
+                'core.custom_context_processors.notifications'
+
             ],
         },
     },
@@ -107,17 +112,17 @@ ASGI_APPLICATION = 'zilo.asgi.application'
 #     }
 # }
 
-# DATABASES = {
-#     "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
-# }
-
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
- }
+    "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+#  }
 
 
 
@@ -186,6 +191,6 @@ CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SELERLIZER = 'json'
-CELERY_TIMEZONE = 'Asia/Kolkata'
+CELERY_TIMEZONE = 'UTF-8'
 
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'

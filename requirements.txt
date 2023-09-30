@@ -19,8 +19,7 @@ virtualenv
 psycopg2
 whitenoise
 dj_database_url
-channels
-aioredi
+channels                                                                                                                                                                            
 amqp
 asgiref
 async-timeout
