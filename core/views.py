@@ -13,9 +13,13 @@ def index(request):
     items = Item.objects.filter(is_approved=True, is_sold=False)[0:12]
     
     favorite = FavoriteItem.objects.none()
+    favorite_counter = None
+
     if request.user.is_authenticated:
         favorite = FavoriteItem.objects.filter(user=request.user)
-        favorite_counter = favorite.first().counter
+        
+        if favorite.exists():
+            favorite_counter = favorite.first().counter
 
     categories = Category.objects.all()
 

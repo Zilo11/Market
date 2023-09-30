@@ -45,7 +45,7 @@ def add_to_favorite(request, pk):
     favorite_list.counter += 1
     favorite_list.save()
 
-    return JsonResponse({'message': 'Item added to favorites successfully'})
+    return redirect('item:detail', pk)
 
 @login_required
 def remove_from_favorite(request, pk):

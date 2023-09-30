@@ -29,7 +29,68 @@
         {% if item_in_favorite %}
     <a href="{% url 'item:remove_from_favorite' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl">Remove item from Favorite</a>
 {% else %}
-    <a href="{% url 'item:add_to_favorite' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl">Add item to Favorite</a>
+
+
+<style>
+#popup {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  border-radius: 6px;
+  font-family: Arial, sans-serif;
+}
+
+#popup p {
+  margin: 0;
+  font-size: 16px;
+  text-align: center;
+}
+</style>
+
+<a href="{% url 'item:add_to_favorite' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl" onclick="showPopup(event)">Add item to Favorite</a>
+
+<div id="popup">
+    <p>Item added to Favorite!</p>
+</div>
+
+<script>
+function showPopup(event) {
+    event.preventDefault(); // Prevent the link from redirecting
+    
+    // Show the popup
+    var popup = document.getElementById("popup");
+    popup.style.display = "block";
+  
+    // Set timeout to hide the popup after 3 seconds
+    setTimeout(function() {
+        popup.style.display = "none";
+    }, 3000);
+  
+    // Make an AJAX request to add the item to the favorite list
+    var url = event.target.href; // Get the URL from the link's href attribute
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            // Item successfully added to the favorite list
+            popup.innerHTML = '<p>Item added to Favorite!</p>';
+        } else {
+            // Handle the error case
+            popup.innerHTML = '<p>Error adding item to Favorite!</p>';
+        }
+    };
+    xhr.send();
+}
+</script>
+
+
+
 {% endif %}
 
         {% endif %}
