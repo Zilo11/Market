@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'channels',
     'dashboard',
     'item',
+    'notifications_app',
+#     'django_celery_beat',
+#     'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -80,12 +83,19 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
+                
+                
+                'core.custom_context_processors.notifications'
+
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'zilo.wsgi.application'
+ASGI_APPLICATION = 'zilo.asgi.application'
+
 
 
 Database
@@ -164,3 +174,23 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
+# # CELERY SETTINGS
+# CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+# CELERY_RESULT_BACKEND = 'django-db'
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TASK_SELERLIZER = 'json'
+# CELERY_TIMEZONE = 'UTF-8'
+
+# CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'

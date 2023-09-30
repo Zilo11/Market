@@ -173,7 +173,7 @@ function showPopup(event) {
             <div>
                 <a href="{% url 'item:detail' item.id %}">
                     <div>
-                        {% comment %} {% if image_url %} {% endcomment %}
+                        {% if item.image %}
                         <img src="{{ item.image.url }}" style="" class="rounded-t-xl">
                         {% comment %} {% endif %} {% endcomment %}
                         <h2 class="text-2xl">{{ item.name }}</h2>
