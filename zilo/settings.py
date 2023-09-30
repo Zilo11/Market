@@ -48,8 +48,8 @@ INSTALLED_APPS = [
     'dashboard',
     'item',
     'notifications_app',
-    'django_celery_beat',
-    'django_celery_results',
+#     'django_celery_beat',
+#     'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -112,17 +112,17 @@ ASGI_APPLICATION = 'zilo.asgi.application'
 #     }
 # }
 
-DATABASES = {
-    "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
-}
-
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-#  }
+#     "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+# }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+ }
 
 
 
@@ -185,12 +185,12 @@ CHANNEL_LAYERS = {
     },
 }
 
-# CELERY SETTINGS
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SELERLIZER = 'json'
-CELERY_TIMEZONE = 'UTF-8'
+# # CELERY SETTINGS
+# CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+# CELERY_RESULT_BACKEND = 'django-db'
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TASK_SELERLIZER = 'json'
+# CELERY_TIMEZONE = 'UTF-8'
 
-CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+# CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
