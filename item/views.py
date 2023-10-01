@@ -3,9 +3,12 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import NewItemForm, EditItemForm
-from .models import Category, Item
+from .models import Category, Item, FavoriteItem
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
+from django.http import JsonResponse
+
+
 
 def items(request):
     query = request.GET.get('query', '')
@@ -26,7 +29,46 @@ def items(request):
         'category_id': int(category_id)
     })
 
+@login_required
+def add_to_favorite(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    user = request.user
 
+    favorite_list, created = FavoriteItem.objects.get_or_create(user=user)
+    if item in favorite_list.items.all():
+        return JsonResponse({'message': 'Item already in favorites'})
+
+    if favorite_list.counter >= 5:
+        return JsonResponse({"message": "Maximum number of items reached"})
+    
+    favorite_list.items.add(item)
+    favorite_list.counter += 1
+    favorite_list.save()
+
+    return redirect('item:detail', pk)
+
+@login_required
+def remove_from_favorite(request, pk):
+    item = get_object_or_404(Item, pk=pk)
+    user = request.user
+
+    try:
+        favorite_list = FavoriteItem.objects.get(user=user)
+    except FavoriteItem.DoesNotExist:
+        return JsonResponse({'message': 'FavoriteItem does not exist'})
+
+    if item not in favorite_list.items.all():
+        return JsonResponse({'message': 'Item not found in favorites'})
+    
+    if favorite_list.counter <= 0:
+        return JsonResponse({"message": "Minimum number of elements reached"})
+
+    favorite_list.items.remove(item)
+    favorite_list.counter -= 1
+    favorite_list.save()
+    return redirect('/')
+
+    
 @login_required
 def admin_approval(request):
     if not request.user.is_superuser:
