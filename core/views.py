@@ -1,27 +1,41 @@
 from django.shortcuts import render, redirect
 
-from item.models import Category, Item
+from item.models import Category, Item, FavoriteItem
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from channels.layers import get_channel_layer
 import json 
 from django.http import HttpResponse
+from asgiref.sync import async_to_sync
+
 
 
 from .forms import SignupForm
 from django.contrib.auth import logout,login
 
+
 def index(request):
     items = Item.objects.filter(is_approved=True, is_sold=False)[0:12]
+    
+    favorite = FavoriteItem.objects.none()
+    favorite_counter = None
+
+    if request.user.is_authenticated:
+        favorite = FavoriteItem.objects.filter(user=request.user)
+        
+        if favorite.exists():
+            favorite_counter = favorite.first().counter
+
     categories = Category.objects.all()
 
     return render(request, 'core/index.html', {
         'categories': categories,
         'items': items,
         'room_name': "broadcast",
+        'favorite_counter': favorite_counter,
+        'favorite': favorite
     })
 
-from asgiref.sync import async_to_sync
 
 def test(request):
     channel_layer = get_channel_layer()
