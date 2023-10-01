@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from channels.layers import get_channel_layer
 import json 
 from django.http import HttpResponse
+from asgiref.sync import async_to_sync
+
 
 
 from .forms import SignupForm
@@ -30,9 +32,10 @@ def index(request):
         'categories': categories,
         'items': items,
         'room_name': "broadcast",
+        'favorite_counter': favorite_counter,
+        'favorite': favorite
     })
 
-from asgiref.sync import async_to_sync
 
 def test(request):
     channel_layer = get_channel_layer()
