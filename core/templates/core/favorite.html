@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Favorite{% endblock %}
+
+{% block content %}
+    <style>
+        .card-img {
+            width: 100%;
+            height: 300px; /* Adjust the height as desired */
+            object-fit: cover;
+        }
+    </style>
+
+    <div class="container">
+        <center>
+            <h1 class="mb-4" style="font-size: 30px;"><b>{{ user.username }} Your favorite Items list</b></h1>
+        </center>
+        <br>
+        {% for favorite_item in favorite %}
+        <div class="row">
+            {% for item in favorite_item.items.all %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <a href="{% url 'item:detail' item.id %}">
+                    <img src="{{ item.image.url }}" alt="{{ item.name }}" class="card-img-top card-img">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-text">Price: {{ item.price }}</p>
+                        
+                        <a href="{% url 'item:remove_from_favorite' item.id %}" class="btn btn-danger">
+                            Remove from Favorite
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>No favorite items found.</p>
+            {% endfor %}
+        </div>
+        {% empty %}
+        <p>No favorite items found.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

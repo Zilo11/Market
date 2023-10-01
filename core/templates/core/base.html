@@ -194,13 +194,19 @@
                     <div style="display: flex;">
     <a href="{% url 'item:new' %}" class="text-lg font-semibold hover:text-gray-500" style="margin-right: 25px;">Add item</a>
     <a href="{% url 'item:items' %}" class="text-lg font-semibold hover:text-gray-500" style="margin-right: 5px;">Browse</a>
-          <div style="position: relative;">
-    <a href="{% url 'core:index' %}" class="text-lg font-semibold hover:text-gray-500">
+
+
+
+                        <div style="position: relative;">
+    <a href="{% url 'core:favorite' %}" class="text-lg font-semibold hover:text-gray-500">
         <i class="fas fa-shopping-cart" style="color: #FF9900;"></i>
     </a>
 
-        <span class="wishlist-count" style="position: absolute; top: -10px; left: 50%;"><b>{{ favorite_counter }}</b></span>
-
+    {% if request.user.is_authenticated %}
+        <span class="wishlist-count" style="position: absolute; top: -10px; left: 50%;">
+            <b>{{ favorite_counter }}</b>
+        </span>
+    {% endif %}
 </div>
 
                     {% comment %} Notifications section {% endcomment %}
