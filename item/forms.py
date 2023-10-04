@@ -13,7 +13,8 @@ class NewItemForm(forms.ModelForm):
                 'class': INPUT_CLASSES
             }),
             'name': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
+                'class': INPUT_CLASSES,
+                'placeholder' 'Item name'
             }),
             'description': forms.Textarea(attrs={
                 'class': INPUT_CLASSES,
