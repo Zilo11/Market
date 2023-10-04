@@ -14,7 +14,7 @@ class NewItemForm(forms.ModelForm):
             }),
             'name': forms.TextInput(attrs={
                 'class': INPUT_CLASSES,
-                'placeholder' 'Item name'
+                'placeholder': 'Item name'
             }),
             'description': forms.Textarea(attrs={
                 'class': INPUT_CLASSES,
