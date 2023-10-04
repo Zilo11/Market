@@ -16,7 +16,6 @@ from django.contrib.auth import logout,login
 
 def index(request):
     items = Item.objects.filter(is_approved=True, is_sold=False)[0:24]
-    
     favorite = FavoriteItem.objects.none()
     favorite_counter = None
 
@@ -35,6 +34,8 @@ def index(request):
         'favorite_counter': favorite_counter,
         'favorite': favorite
     })
+
+    
 
 def favorite(request):
     favorites = FavoriteItem.objects.filter(user=request.user)

@@ -12,14 +12,14 @@
         {% endfor %}
     {% endif %}
 </div>    
-<div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+<div class="grid grid-cols-1 md:grid-cols-5 gap-6 container">
    
     {% if item.image %}
     <div class="md:col-span-3">
 
         
         <div class="md:col-span-3">
-    <div class="d-flex flex-wrap align-items-center">
+    <div class="d-flex flex-wrap align-items-center container">
         <img src="{{ item.image.url }}" class="rounded-xl mb-3 mb-md-0">
     </div>
 
@@ -151,6 +151,8 @@ function showPopup(event) {
 {% elif request.user.is_superuser %}
   <div class="mt-6 p-6 bg-white rounded-xl">
     <a href="{% url 'item:delete' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl">Delete</a>
+      <a href="{% url 'conversation:new' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Contact seller</a>
+
   </div>
 {% else %}
 
