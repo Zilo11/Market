@@ -16,7 +16,6 @@ from django.contrib.auth import logout,login
 
 def index(request):
     items = Item.objects.filter(is_approved=True, is_sold=False)[0:24]
-    
     favorite = FavoriteItem.objects.none()
     favorite_counter = None
 
@@ -36,19 +35,19 @@ def index(request):
         'favorite': favorite
     })
 
+    
+
 def favorite(request):
     favorites = FavoriteItem.objects.filter(user=request.user)
 
     favorite = FavoriteItem.objects.none()
-    favorite_counter = None
+    favorite_counter =  0
 
     if request.user.is_authenticated:
         favorite = FavoriteItem.objects.filter(user=request.user)
         
         if favorite.exists():
             favorite_counter = favorite.first().counter
-
-
 
     context={
         'favorite': favorite

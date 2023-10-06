@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="w-full sm:w-1/2 my-6 mx-auto p-6 bg-gray-100 rounded-xl">
-    <h1 class="mb-6 text-3xl">Log in</h1>
+    <h1 class="mb-6 text-3xl text-center"><b>Log in</b></h1>
 
     <form method="post" action=".">
         {% csrf_token %}
@@ -38,7 +38,7 @@
             <div class="mt-5">Don't have an account? <b style="color: #ff9900;"><a href="{% url 'core:signup' %}">Sign up</a></b></div>
     </center>
     <center>
-            <div class="mt-5">Forgot Password? <b style="color: #ff9900;"><a href="{% url 'reset_password' %}">Reset</a></b></div>
+            <div class="mt-5">Forgot Password? <b style="color: #ff9900;"><a href="{% url 'reset_password' %}">Reset via Email</a></b></div>
     </center>
 </div>
 {% endblock %}

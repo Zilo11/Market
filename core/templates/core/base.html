@@ -1,6 +1,5 @@
 <!doctype html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -82,11 +81,9 @@
         
 
         footer {
-            display: none; /* Initially hide the footer */
-            position: fixed;
             bottom: 0;
             width: 100%;
-            padding: 20px 0; /* Adjust padding as desired */
+            padding: 10px 0; /* Adjust padding as desired */
             background-color: #333;
             font-family: Arial, sans-serif;
         }
@@ -100,7 +97,7 @@
         }
 
         .footer-links {
-            margin-bottom: 20px;
+            margin-bottom: 2px;
         }
 
         .footer-links a {
@@ -174,47 +171,51 @@
 <body>
     
     
-    <nav class="py-6 px-1 flex justify-between items-center border-b border-gray-200">
+    <nav class="py-6 px-1 flex justify-between items-center border-b bg-dark">
             {% comment %} <a href="/" class="text-xl font-semibold">PostMarket</a> {% endcomment %}
             <div style="position: relative; display: inline-block;" class="py--3">
                 <a href="/"><span style="font-family: 'Arial', sans-serif; font-size: 24px; font-weight: bold; color:#00bfa6; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); letter-spacing: 2px;">Post</span>
-                <span style="position: absolute; bottom: : -10px; left: 30px; font-family: 'Arial', sans-serif; font-size: 24px; font-weight: bold;padding-top: 15px;  color:  #ff9900;">Market</span></a>
+                <span style="position: absolute; bottom: : -10px; left: 30px; font-family: 'Arial', sans-serif; font-size: 24px; font-weight: bold;padding-top: 15px; color:  #ff9900;">Market</span></a>
               </div>
 
     
 
-            <div class="">
+            <div class="" style="color:  white;">
                 
                 {% if request.user.is_authenticated %}
-                <div class="flex space-x-4    ">
-                    <a href="{% url 'conversation:inbox' %}" class="px-4 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-blue-700">Inbox</a>
-                    <a href="{% url 'dashboard:index' %}" class="px-4 py-3 text-lg font-semibold bg-green-500 text-white rounded-xl hover:bg-green-700">My Products</a>
+                <div class="flex space-x-2">
+                    <a style="height: 40px;" href="{% url 'conversation:inbox' %}" class="px-3 py-2 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-blue-700">Inbox</a>
+                    <a style="height: 40px;" href="{% url 'dashboard:index' %}" class="px-3 py-2 text-lg font-semibold bg-green-500 text-white rounded-xl hover:bg-green-700">My Products</a>
                 </div><br>
                     
                     <div style="display: flex;">
-    <a href="{% url 'item:new' %}" class="text-lg font-semibold hover:text-gray-500" style="margin-right: 25px;">Add item</a>
-    <a href="{% url 'item:items' %}" class="text-lg font-semibold hover:text-gray-500" style="margin-right: 5px;">Browse</a>
+    <a href="{% url 'item:new' %}" class="text-lg font-semibold hover:text-gray-200" style="margin-right: 20px; font-size: 15px;">Add_item</a>
+    <a href="{% url 'item:items' %}" class="text-lg font-semibold hover:text-gray-200" style="margin-right: 5px; font-size: 15px;">Browse</a>
 
 
 
-                        <div style="position: relative;">
-    <a href="{% url 'core:favorite' %}" class="text-lg font-semibold hover:text-gray-500">
-        <i class="fas fa-shopping-cart" style="color: #FF9900;"></i>
-    </a>
+        <div style="position: relative;">
+            <a href="{% url 'core:favorite' %}" class="text-lg font-semibold">
+            <i class="fas fa-shopping-cart" style="color: #00bfa6;"></i>
+        </a>
 
     {% if request.user.is_authenticated %}
-        <span class="wishlist-count" style="position: absolute; top: -10px; left: 50%;">
+            <span class="wishlist-count" style="position: absolute; top: -10px; left: 30%; color: #FF9900">
+                {% if favorite_counter == 0 %}
+                <b>0</b>
+                {% else %}
             <b>{{ favorite_counter }}</b>
+            {% endif %}
         </span>
     {% endif %}
 </div>
 
                     {% comment %} Notifications section {% endcomment %}
-                    <li class="nav-item dropdown notification-section" style="margin-left: 5px;">
+                    <li class="nav-item dropdown notification-section" style="margin-left: 5px; color: #00bfa6;">
                         <a href="#" class="notification dropdown-toggle" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="true">
                             <span><i class='fa fa-bell'></i></span>
-                            <span class="badge" id="notification-badge">{{notifications.count}}</span>
+                            <span class="badge" id="notification-badge" style="float: left;">{{notifications.count}}</span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="notifications-dropdown"
                             data-popper-placement="bottom-end"
@@ -240,14 +241,14 @@
 
         
     
-    <div class="px-6 py-6">
+    {% comment %} <div class="px-6 py-6"> {% endcomment %}
         {% block content %}
         
         {% endblock %}
-        <br>
-    </div>
-    
-    <footer class="footer bg-dark text-white text-center">
+
+
+
+    <footer class="footer bg-dark text-center">
     <div class="container">
         <div class="row">
             <div class="col-md-6 mx-auto">
@@ -259,16 +260,16 @@
             </div>
         </div>
 
-             <div class="row">
+        <div class="row">
             <div class="col-md-12">
                 <div class="footer-content">
-                    <p class="mt-2">Powered by <a href="https://zilotechs.com" target="_blank" style="font-family: 'Arial', sans-serif; font-size: 20px; font-weight: bold; color: #00bfa6;" class="powered-by">Zilo</a></p>
+                    <p class="mt-2">Powered by <a href="https://zilotechs.com" target="_blank" class="powered-by">Zilo</a></p>
                 </div>
             </div>
         </div>
-   
     </div>
 </footer>
+
 
         {{ room_name|json_script:"room-name" }}
         <script>
