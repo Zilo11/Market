@@ -43,8 +43,15 @@
                   <input class="form-check-input" type="checkbox" name="action_{{ item.id }}" id="delete_{{ item.id }}" value="delete">
                   <label class="form-check-label" for="delete_{{ item.id }}">Delete</label>
                 </div>
+                
+              </td>
+              <td>
+              <a href="{% url 'conversation:new' item.id %}" class="inline-block mt-0 px-3 py-2  text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-70">Contact seller</a>
               </td>
             </tr>
+            <div>
+
+            </div>
           {% endfor %}
         </tbody>
       </table>
