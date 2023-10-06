@@ -21,9 +21,11 @@
             {% for item in favorite_item.items.all %}
             <div class="col-md-4 mb-4">
                 <div class="card">
+                    {% if item.image%}
                     <a href="{% url 'item:detail' item.id %}">
                     <img src="{{ item.image.url }}" alt="{{ item.name }}" class="card-img-top card-img">
-                    </a>
+                </a>
+                {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ item.name }}</h5>
                         <p class="card-text">Price: {{ item.price }}</p>

@@ -53,8 +53,9 @@
 }
 </style>
 
+{% if request.user.is_authenticated %}
 <a href="{% url 'item:add_to_favorite' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl" onclick="showPopup(event)">Add item to Favorite</a>
-
+{% endif %}
 <div id="popup">
     <p>Item added to Favorite!</p>
 </div>
@@ -95,7 +96,7 @@ function showPopup(event) {
 
         {% endif %}
         <div class="p-6 bg-gray-100 rounded-xl mt-6">
-            <h1 class="mb-6 text-3xl">{{ item.name }}</h1>
+            <h1 class="mb-6 text-3xl"><b>{{ item.name }}</b></h1>
             <p class="text-gray-500"><strong>Price: </strong>FCFA{{ item.price }}</p>
             <p class="text-gray-500"><strong>Location: </strong>{{ item.location }}</p>
             <p class="text-gray-500"><strong>Seller: </strong><strong>{{ item.created_by.username }}</strong></p>
@@ -167,7 +168,7 @@ function showPopup(event) {
     </div>
 
     
-<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+<div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl mb-5">
     <h2 class="mb-12 text-2xl text-center">Related items</h2>
 
     <div class="">
@@ -187,7 +188,5 @@ function showPopup(event) {
         {% endfor %}
     </div>
 </div>
-<br><br>
-<div class="mt-5">.</div>
-<br><br><br>
+</div>
 {% endblock %}

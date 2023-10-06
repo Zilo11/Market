@@ -21,14 +21,11 @@
                                 <strong>{{ conversation.members.0.username }}</strong>
                                 <span class="text-sm text-gray-500">{{ conversation.modified_at }}</span>
                             </div>
-                            <div>
-                                <strong>{{ conversation.members.1.username }}</strong>
-                                <span class="text-sm text-gray-500">{{ conversation.modified_at }}</span>
-                            </div>
+
                         </div>
                         <div>
-                            <p class="mb-1 text-gray-500">{{ conversation.item.name }}</p>
-                            <p class="text-gray-500">Last message: {{ conversation.last_message.content }}</p>
+                            <p class="mb-1 text-gray-500">From: <b>{{ conversation.item.name }}</b></p>
+                            {% comment %} <p class="text-gray-500">Last message: {{ conversation.last_message.content }}</p> {% endcomment %}
                         </div>
                     </div>
                 </div>
