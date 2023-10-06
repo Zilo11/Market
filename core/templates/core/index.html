@@ -42,12 +42,14 @@
                 {% if request.user.is_authenticated %}
                 
                     {% if item in favorite %}
+                        {% for item in favorite_item.items.all %}
                         <p>excellent</p>
                         <a href="{% url 'item:remove_from_favorite' pk=item.pk %}">
                             <svg class="bi bi-heart wishlist-icon" width="16" height="16" viewBox="0 0 16 16">
                                 <path fill="#FF9900" d="M8 14.757l-6.5-6.5C.57 7.034 0 5.979 0 4.915 0 2.67 1.79 1 4 1c1.133 0 2.266.44 3 1.286C8.734 1.44 9.867 1 11 1c2.21 0 4 1.67 4 3.915 0 1.064-.57 2.119-1.5 3.342L8 14.757z"/>
                             </svg>
                         </a>
+                        {% endfor %}
                     {% endif %}
                 {% endif %}
             </div>
@@ -65,7 +67,7 @@
 </div>
 
 <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-    <h2 class="mb-12 text-2xl text-center">Categories</h2>
+    <h1 class="mb-12 text-2xl text-center"><b>Categories</b></h1>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-3">
         {% for category in categories %}
@@ -80,5 +82,6 @@
         {% endfor %}
     </div>
 </div>
-<div class="mt-5">,</div>
+
+
 {% endblock %}

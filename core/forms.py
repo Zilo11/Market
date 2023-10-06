@@ -25,6 +25,16 @@ class SignupForm(UserCreationForm):
         'placeholder': 'Your email address',
         'class': 'w-full py-4 px-6 rounded-xl'
     }))
+
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("This email is already in use. You may use a different one.")
+        return email
+
+
+
     phone = forms.CharField(
         widget=forms.TextInput(attrs={
             'placeholder': 'Your phone number with country code',
@@ -41,3 +51,6 @@ class SignupForm(UserCreationForm):
         'placeholder': 'Repeat password',
         'class': 'w-full py-4 px-6 rounded-xl'
     }))
+
+
+  
