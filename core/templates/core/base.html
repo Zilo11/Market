@@ -86,6 +86,8 @@
             padding: 10px 0; /* Adjust padding as desired */
             background-color: #333;
             font-family: Arial, sans-serif;
+            margin-bottom: 0px;
+            position: relative;
         }
 
         .footer-content {
@@ -256,9 +258,19 @@
                     <a href="{% url 'core:about' %}" class="text-lg text-white hover:text-teal-500">About</a>
                     <a href="{% url 'core:contact' %}" class="text-lg text-white hover:text-teal-500">Contact</a>
                     <a href="{% url 'core:privacy_policy' %}" class="text-lg text-white hover:text-teal-500">Privacy Policy</a>
+                  </div>
                 </div>
+              </div>
+          
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="footer-content">
+                    <p class="mt-2">Powered by <a href="https://zilotechs.com" target="_blank" class="powered-by">Zilo</a></p>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
+          </footer>
 
         <div class="row">
             <div class="col-md-12">
