@@ -66,7 +66,7 @@ def remove_from_favorite(request, pk):
     favorite_list.items.remove(item)
     favorite_list.counter -= 1
     favorite_list.save()
-    return redirect('/')
+    return redirect('core:favorite')
 
     
 @login_required
@@ -96,11 +96,19 @@ def admin_approval(request):
 
 def detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
-    related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:3]
+    related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:2]
+    
+    if request.user.is_authenticated:
+        favorite = FavoriteItem.objects.get(user=request.user)
+        favorite_counter = favorite.counter
+
+        if favorite_counter > 5:
+            messages.info(request, 'Your Cart is full.Remove some items to inorder to')
 
     return render(request, 'item/detail.html', {
         'item': item,
-        'related_items': related_items
+        'related_items': related_items,
+        # 'favorite_counter': favorite_counter 
     })
 
 @login_required
