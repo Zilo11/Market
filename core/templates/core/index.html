@@ -9,9 +9,9 @@
     {% if user.is_authenticated %}
         <marquee>
         <h2 class="text-2xl text-center mt-5">
-            <b class="text-3xl lg:text-4xl"><b>Welcome</b>, {{ user.username }}!</b>
+            <p class="text-3xl lg:text-4xl">Welcome, <b style="text-transform: capitalize;">{{ user.username }}!</b></p>
          </h2>
-        <p class="text-lg text-center mt-3">Thank you for choosing PostMarket. Start exploring latest items and find great deals!</p>
+        <p class="text-center mt-3">Thank you for choosing PostMarket. Start exploring latest items and find great deals!</p>
     </marquee>
 
     {% endif %}

@@ -3,13 +3,13 @@
 {% block title %}Inbox{% endblock %}
 
 {% block content %}
-<h1 class="mb-6 text-3xl mt-5 container"><b>Your Inbox</b></h1>
+        <h1 style="font-size: 45px; text-transform: uppercase;" class="container mt-5 mb-12 text-2xl text-center"><b>{{user.username}} Inbox</b></h1>
 
 <div class="space-y-6 container mt-5">
-    <center><b><h1>Latest Messages</h1></b></center>
+    <center><b><h1 style="font-size: 20px;">Latest Messages</h1></b></center>
     {% for conversation in conversations %}
         <a href="{% url 'conversation:detail' conversation.id %}">
-            <div class="p-6 flex bg-gray-100 rounded-xl">
+            <div class="container mt-2 p-6 flex bg-gray-100 rounded-xl">
                 <div class="pr-6">
                     <img src="{{ conversation.item.image.url }}" class="w-20 rounded-full">
                 </div>
