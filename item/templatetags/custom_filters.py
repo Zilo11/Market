@@ -2,20 +2,20 @@ from django import template
 
 register = template.Library()
 
-@register.filter
-def stars_range(value):
-    return range(value)
-
-from django import template
-
-register = template.Library()
-
-@register.filter
+@register.filter(name='average_rate')
 def average_rate(reviews):
-    total_rating = sum(review.rate for review in reviews)
-    count = len(reviews)
+    # Implement your logic to calculate the average rate using the `reviews` queryset
+    # Return the average rate value
     
-    if count != 0:
-        return total_rating / count
+    # Example implementation:
+    total = 0
+    count = 0
+    for review in reviews:
+        total += review.rate
+        count += 1
+    
+    if count > 0:
+        average = total / count
+        return round(average, 2)
     else:
         return 0
