@@ -41,18 +41,16 @@
                 <p class="text-gray-500">Price: FCFA {{ item.price }}</p>
                 
                 {% if request.user.is_authenticated %}
-    {% for favorite_item in favorite %}
-        {% if item == favorite_item.item %}
-            <p>excellent</p>
-            <a href="{% url 'item:remove_from_favorite' pk=item.pk %}">
-                <svg class="bi bi-heart wishlist-icon" width="16" height="16" viewBox="0 0 16 16">
-                    <path fill="#FF9900" d="M8 14.757l-6.5-6.5C.57 7.034 0 5.979 0 4.915 0 2.67 1.79 1 4 1c1.133 0 2.266.44 3 1.286C8.734 1.44 9.867 1 11 1c2.21 0 4 1.67 4 3.915 0 1.064-.57 2.119-1.5 3.342L8 14.757z"/>
-                </svg>
-            </a>
-        {% endif %}
-    {% endfor %}
-{% endif %}
-
+                    {% for favorite_item in favorite %}
+                    {% if item in favorite_item.items.all %}
+                        <a href="{% url 'item:remove_from_favorite' pk=item.pk %}">
+                            <svg class="bi bi-heart wishlist-icon" width="16" height="16" viewBox="0 0 16 16">
+                                <path fill="red" d="M8 14.757l-6.5-6.5C.57 7.034 0 5.979 0 4.915 0 2.67 1.79 1 4 1c1.133 0 2.266.44 3 1.286C8.734 1.44 9.867 1 11 1c2.21 0 4 1.67 4 3.915 0 1.064-.57 2.119-1.5 3.342L8 14.757z"/>
+                            </svg>
+                        </a>
+                    {% endif %}
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     {% endif %}

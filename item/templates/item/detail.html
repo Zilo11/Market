@@ -51,13 +51,38 @@
   font-size: 16px;
   text-align: center;
 }
+
+<style>
+#fullscreen-image {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 99999;
+  text-align: center;
+}
+
+#fullscreen-image img {
+  max-width: 90%;
+  max-height: 90%;
+  margin-top: 5%;
+  border-radius: 6px;
+}
+
 </style>
 
 {% if request.user.is_authenticated %}
 <a href="{% url 'item:add_to_favorite' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl" onclick="showPopup(event)">Add item to Favorite</a>
 {% endif %}
 <div id="popup">
-    <p>Item added to Favorite!</p>
+    {% if favorite_counter < 5 %}
+        <p>Your Cart is full. You have to remove some items.</p>
+    {% else%}
+        <p>Item added to Favorite!</p>
+    {% endif %}
 </div>
 
 <script>
@@ -171,22 +196,38 @@ function showPopup(event) {
 <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl mb-5">
     <h2 class="mb-12 text-2xl text-center">Related items</h2>
 
-    <div class="">
-        {% for item in related_items reversed %}
-            <div>
-                <a href="{% url 'item:detail' item.id %}">
-                    <div>
-                        {% if item.image %}
-                        <img src="{{ item.image.url }}" style="" class="rounded-t-xl">
-                        {% endif %}
-                        <h2 class="text-2xl">{{ item.name }}</h2>
-                        <p class="text-gray-500">Price:FCFA {{ item.price }}</p>
-                    </div>
-                </a>
-            </div>
+    <div class="container">
+  <div class="row">
+    {% for item in related_items reversed %}
+    <div class="col-md-4">
+      <a href="{% url 'item:detail' item.id %}">
+        <div class="card mb-4">
+          {% if item.image %}
+          <img src="{{ item.image.url }}" class="card-img-top" onclick="showFullscreenImage('{{ item.image.url }}')">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ item.name }}</h5>
+            <p class="card-text">Price: FCFA {{ item.price }}</p>
+          </div>
+        </div>
+      </a>
     </div>
-        {% endfor %}
-    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div id="fullscreen-image">
+  <img id="fullscreen-image-img">
+</div>
+
+
 </div>
 </div>
+
+
+<script>
+
+</script>
+
+
 {% endblock %}
