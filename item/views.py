@@ -143,7 +143,7 @@ def new(request):
 
     return render(request, 'item/form.html', {
         'form': form,
-        # 'title': 'New item',
+        'title': 'New item',
     })
 
 # def send_notification(username, title, message):

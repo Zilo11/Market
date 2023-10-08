@@ -33,16 +33,7 @@ def new_conversation(request, item_pk):
             conversation_message.created_by = request.user
             conversation_message.save()
 
-            # Send notification to the sender
-            sender = request.user
-            sender_notification_text = f"Your message regarding item {item} has been sent."
-            send_notification(sender, sender_notification_text)
-
-            # Send notification to the recipient
-            recipient = item.created_by
-            recipient_notification_text = f"You have a new message regarding item {item}."
-            send_notification(recipient, recipient_notification_text)
-
+           
             messages.success(request, "Message sent successfully.")
             return redirect('item:detail', pk=item_pk)
     else:
@@ -51,15 +42,7 @@ def new_conversation(request, item_pk):
     return render(request, 'conversation/new.html', {
         'form': form
     })
-from plyer import notification
 
-def send_notification(user, message):
-    notification.notify(
-        title='New Message',
-        message=message,
-        app_icon=None,  # You can provide an icon file path here if desired
-        timeout=10,  # The notification will automatically disappear after 10 seconds
-    )
 
 @login_required
 def inbox(request):
