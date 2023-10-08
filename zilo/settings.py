@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'dashboard',
     'item',
     'notifications_app',
-    'item.custom_filters',
+    # 'item.custom_filters',
 #     'django_celery_beat',
 #     'django_celery_results',
 ]
