@@ -66,7 +66,7 @@ def remove_from_favorite(request, pk):
     favorite_list.items.remove(item)
     favorite_list.counter -= 1
     favorite_list.save()
-    return redirect('/')
+    return redirect('core:favorite')
 
     
 @login_required
@@ -96,12 +96,26 @@ def admin_approval(request):
 
 def detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
-    related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:3]
+    related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:2]
+    
+    if request.user.is_authenticated:
+        favorite = FavoriteItem.objects.get(user=request.user)
+        favorite_counter = favorite.counter
+
+        if favorite_counter > 5:
+            messages.info(request, 'Your Cart is full.Remove some items to inorder to')
 
     return render(request, 'item/detail.html', {
         'item': item,
-        'related_items': related_items
+        'related_items': related_items,
+        # 'favorite_counter': favorite_counter 
     })
+
+# from plyer import notification
+# from django.contrib.auth.models import User
+
+# from plyer import notification
+# from django.contrib.auth.models import User
 
 @login_required
 def new(request):
@@ -114,16 +128,34 @@ def new(request):
             item.is_approved = False
 
             item.save()
-            messages.success(request,'Thank you! Your Product is under review by the administrators, You shall see it in the platform soon')
-            
+            messages.success(request, 'Thank you! Your Product is under review by the administrators. You shall see it on the platform soon.')
+
+            # # Get the users to notify
+            # users_to_notify = User.objects.exclude(id=request.user.id)
+
+            # # Send notifications to each user
+            # for user in users_to_notify:
+            #     send_notification(user.username, item.name, "Has been added on PostMarket, Be the First to see")
+
             return redirect('item:detail', pk=item.id)
     else:
         form = NewItemForm()
 
     return render(request, 'item/form.html', {
         'form': form,
-        'title': 'New item',
+        # 'title': 'New item',
     })
+
+# def send_notification(username, title, message):
+#     notification.notify(
+#         title=title,
+#         message=message,
+#         timeout=10,  # Notification duration in seconds
+#         app_name=username,  # Use the username as the app_name to ensure unique notifications per user
+#         # app_icon=image_path  # Set the image path as the app_icon to display the image in the notification
+#     )
+    
+
 
 @login_required
 def edit(request, pk):
@@ -167,7 +199,10 @@ def item_detail(request, pk):
             review.item = item
             review.user = request.user
             review.save()
-            return redirect('item_detail', pk=pk)
+            messages.success(request, 'Your review has been submitted.')
+            return redirect('item:detail', pk=pk)
+    else:
+        form = ReviewForm()
 
     # Get items with similar user interactions
     similar_items = Item.objects.filter(reviews__user=request.user).exclude(pk=pk).distinct()

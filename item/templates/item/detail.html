@@ -12,15 +12,15 @@
         {% endfor %}
     {% endif %}
 </div>    
-<div class="grid grid-cols-1 md:grid-cols-5 gap-6 container">
+<div class="container mt-5 grid grid-cols-1 md:grid-cols-5 gap-6 container">
    
     {% if item.image %}
     <div class="md:col-span-3">
 
         
-        <div class="md:col-span-3">
-    <div class="d-flex flex-wrap align-items-center container">
-        <img src="{{ item.image.url }}" class="rounded-xl mb-3 mb-md-0">
+      <div class="md:col-span-3">
+        <div class="d-flex flex-wrap align-items-center container">
+          <img src="{{ item.image.url }}" class="rounded-xl mb-3 mb-md-0" width="500" height="500" onclick="showFullscreenImage('{{ item.image.url }}')">
     </div>
 
     
@@ -51,16 +51,68 @@
   font-size: 16px;
   text-align: center;
 }
+
+<style>
+#fullscreen-image {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 99999;
+  text-align: center;
+}
+
+#fullscreen-image img {
+  max-width: 90%;
+  max-height: 90%;
+  margin-top: 5%;
+  border-radius: 6px;
+}
+
+#fullscreen-image {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 99999;
+  text-align: center;
+}
+
+#fullscreen-image img {
+  max-width: 90%;
+  max-height: 90%;
+  margin-top: 5%;
+  border-radius: 6px;
+}
+
 </style>
 
 {% if request.user.is_authenticated %}
 <a href="{% url 'item:add_to_favorite' item.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl" onclick="showPopup(event)">Add item to Favorite</a>
 {% endif %}
 <div id="popup">
-    <p>Item added to Favorite!</p>
+    {% if favorite_counter < 5 %}
+        <p>Your Cart is full. You have to remove some items.</p>
+    {% else%}
+        <p>Item added to Favorite!</p>
+    {% endif %}
 </div>
 
+
+{% comment %} <div id="fullscreen-image">
+  <span class="close-button" onclick="closeFullscreenImage()">&times;</span>
+  <img id="fullscreen-image-img">
+</div> {% endcomment %}
+
+
 <script>
+
 function showPopup(event) {
     event.preventDefault(); // Prevent the link from redirecting
     
@@ -110,38 +162,78 @@ function showPopup(event) {
             {% endif %}
 
             
+            {% load custom_filters %}
+
             <div class="mt-6">
-                <h2 class="text-xl">Reviews</h2>
-                {% if item.reviews.all %}
-                    <ul class="mt-4">
-                        {% for review in item.reviews.all %}
-                            <li class="mb-4">
-                                <div class="flex items-center">
-                                    <span class="mr-2 font-bold">{{ review.user.username }}</span>
-                                    {% for i in review.get_rating_display %}
-                                    <span class="fas fa-star text-yellow-500"></span>
-                                    {% endfor %}
-                                </div>
-                                <p class="mt-2">{{ review.comment }}</p>
-                                <p class="text-xs text-gray-500 mt-2">{{ review.created_at|date:'F d, Y' }}</p>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>No reviews yet.</p>
-                {% endif %}
-
-                {% if request.user.is_authenticated %}
-                    <form method="post" class="mt-6">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit" class="px-4 py-2 text-white bg-gray-900 rounded-lg mt-4">Submit review</button>
-                    </form>
-                {% else %}
-                    {% comment %} <p class="mt-6">Please <a href="{% url 'account_login' %}?next={{ request.path }}">log in</a> to add a review.</p> {% endcomment %}
-                {% endif %}
+              <h2 class="text-xl">Reviews</h2>
+              {% if item.reviews.all %}
+                  <ul class="mt-4">
+                      {% for review in item.reviews.all %}
+                          <li class="mb-4">
+                              <div class="flex items-center">
+                                  <span class="mr-2 font-bold">{{ review.user.username }}</span>
+                                  {% for _ in review.stars_range %}
+                                      <span class="fas fa-star text-yellow-500"></span>
+                                  {% endfor %}
+                              </div>
+                          </li>
+                      {% endfor %}
+                  </ul>
+                  <p class="mt-4">Average Rating: {{ item.reviews.all|average_rate }}</p>
+              {% else %}
+                  <p>No reviews yet.</p>
+              {% endif %}
+          </div>
+          
+          {% if request.user.is_authenticated %}
+          <form method="post" class="mt-6">
+            {% csrf_token %}
+            {{ form.as_p }}
+        
+            <div class="rating-stars">
+                <input type="radio" id="star5" name="rate" value="5" />
+                <label for="star5" title="5 stars" class="star">&#9733;</label>
+                <input type="radio" id="star4" name="rate" value="4" />
+                <label for="star4" title="4 stars" class="star">&#9733;</label>
+                <input type="radio" id="star3" name="rate" value="3" />
+                <label for="star3" title="3 stars" class="star">&#9733;</label>
+                <input type="radio" id="star2" name="rate" value="2" />
+                <label for="star2" title="2 stars" class="star">&#9733;</label>
+                <input type="radio" id="star1" name="rate" value="1" />
+                <label for="star1" title="1 star" class="star">&#9733;</label>
             </div>
-
+        
+            <input type="hidden" name="item_id" value="{{ item.id }}" />
+        
+            <button type="submit" class="px-4 py-2 text-white bg-gray-900 rounded-lg mt-4">Submit review</button>
+        </form>
+          {% else %}
+              <p class="mt-6">Please <a href="{% url 'account_login' %}?next={{ request.path }}">log in</a> to add a review.</p>
+          {% endif %}
+          
+          <style>
+              .rating-stars {
+                  unicode-bidi: bidi-override;
+                  direction: rtl;
+                  text-align: center;
+              }
+          
+              .rating-stars input[type="radio"] {
+                  display: none;
+              }
+          
+              .rating-stars label.star {
+                  display: inline-block;
+                  font-size: 2rem;
+                  color: #ccc;
+                  transition: color 0.2s;
+                  cursor: pointer;
+              }
+          
+              .rating-stars input[type="radio"]:checked ~ label.star {
+                  color: gold;
+              }
+          </style>
             {% if request.user == item.created_by %}
   <div class="mt-6 p-6 bg-white rounded-xl">
     <p>This is your item!</p>
@@ -171,22 +263,33 @@ function showPopup(event) {
 <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl mb-5">
     <h2 class="mb-12 text-2xl text-center">Related items</h2>
 
-    <div class="">
-        {% for item in related_items reversed %}
-            <div>
-                <a href="{% url 'item:detail' item.id %}">
-                    <div>
-                        {% if item.image %}
-                        <img src="{{ item.image.url }}" style="" class="rounded-t-xl">
-                        {% endif %}
-                        <h2 class="text-2xl">{{ item.name }}</h2>
-                        <p class="text-gray-500">Price:FCFA {{ item.price }}</p>
-                    </div>
-                </a>
-            </div>
+    <div class="container">
+  <div class="row">
+    {% for item in related_items reversed %}
+    <div class="col-md-4">
+      <a href="{% url 'item:detail' item.id %}">
+        <div class="card mb-4">
+          {% if item.image %}
+          <img src="{{ item.image.url }}" width="50px" height="10px" class="card-img-top" onclick="showFullscreenImage('{{ item.image.url }}')">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ item.name }}</h5>
+            <p class="card-text">Price: FCFA {{ item.price }}</p>
+          </div>
+        </div>
+      </a>
     </div>
-        {% endfor %}
-    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div id="fullscreen-image">
+  <img id="fullscreen-image-img">
+</div>
+
+
 </div>
 </div>
+
+
 {% endblock %}
