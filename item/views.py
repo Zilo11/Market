@@ -199,7 +199,10 @@ def item_detail(request, pk):
             review.item = item
             review.user = request.user
             review.save()
-            return redirect('item_detail', pk=pk)
+            messages.success(request, 'Your review has been submitted.')
+            return redirect('item:detail', pk=pk)
+    else:
+        form = ReviewForm()
 
     # Get items with similar user interactions
     similar_items = Item.objects.filter(reviews__user=request.user).exclude(pk=pk).distinct()
