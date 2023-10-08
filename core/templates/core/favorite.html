@@ -13,36 +13,46 @@
 
     <div class="container">
         <center>
-            <h1 class="mb-4" style="font-size: 30px;"><b>{{ user.username }} Your favorite Items list</b></h1>
+            <h1 class="container mb-4 mt-5" style="font-size: 30px;"><b style="text-transform: uppercase;">{{ user.username }}</b> Your favorite Items list</h1>
         </center>
         <br>
         {% for favorite_item in favorite %}
         <div class="row">
             {% for item in favorite_item.items.all %}
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    {% if item.image%}
-                    <a href="{% url 'item:detail' item.id %}">
-                    <img src="{{ item.image.url }}" alt="{{ item.name }}" class="card-img-top card-img">
-                </a>
-                {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ item.name }}</h5>
-                        <p class="card-text">Price: {{ item.price }}</p>
-                        
-                        <a href="{% url 'item:remove_from_favorite' item.id %}" class="btn btn-danger">
-                            Remove from Favorite
+            {% if forloop.counter0|divisibleby:2 %}
+            <div class="col-md-6 mb-4"> <!-- Use col-md-6 for two items in a row -->
+            {% endif %}
+                {% if item.image %}
+                    <div class="flex flex-col items-center mb-4">
+                        <a href="{% url 'item:detail' item.id %}">
+                            <div class="w-full max-w-xs">
+                                <img src="{{ item.image.url }}" class="object-cover w-full h-64 rounded-t-xl" style="width: 400px;">
+                            </div>
                         </a>
-
+                        <div class="p-6 bg-white rounded-b-xl w-full max-w-xs">
+                            <a href="{% url 'item:detail' item.id %}">
+                              <h2 class="text-xl lg:text-2xl">{{ item.name }}</h2>
+                            </a>
+                            <p class="text-gray-500">Price: FCFA {{ item.price }}</p>
+                    
+                            <a href="{% url 'item:remove_from_favorite' item.id %}" class="btn btn-danger">
+                                Remove from Favorite
+                            </a>
+                        </div>
                     </div>
-                </div>
-            </div>
-            {% empty %}
-            <p>No favorite items found.</p>
+                {% endif %}
+            {% if forloop.counter|divisibleby:2 %}
+            </div> <!-- Closing the col-md-6 div after every two items -->
+            {% endif %}
             {% endfor %}
+            {% if not forloop.last and not forloop.counter|divisibleby:2 %}
+            </div> <!-- Closing the col-md-6 div if the loop ends with an odd number of items -->
+            {% endif %}
         </div>
         {% empty %}
         <p>No favorite items found.</p>
         {% endfor %}
     </div>
+
+    </a></div>
 {% endblock %}
