@@ -103,7 +103,7 @@ def detail(request, pk):
         favorite_counter = favorite.counter
 
         if favorite_counter > 5:
-            messages.info(request, 'Your Cart is full.Remove some items to inorder to')
+            messages.info(request, 'Your Cart is full.Remove some items to inorder to add this new Item')
 
     return render(request, 'item/detail.html', {
         'item': item,

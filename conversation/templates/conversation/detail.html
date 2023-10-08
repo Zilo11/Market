@@ -3,89 +3,7 @@
 {% block title %}Messages{% endblock %}
 
 {% block content %}
-<<<<<<< HEAD
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl text-center mb-6">Your Messages</h1>
-        
-        <div id="message-container" class="space-y-6">
-            {% for message in conversation.messages.all %}
-                <div class="flex {% if message.created_by == request.user %}justify-end self-end{% else %}justify-start self-start{% endif %}">
-                    <div class="rounded-lg shadow-md bg-blue-100 p-4 {% if message.created_by == request.user %}text-right bg-blue-100{% else %}text-left bg-gray-100{% endif %}" style="word-break: break-word;">
-                    <p class="mb-2"><strong>@{{ message.created_by.username }}</strong> : {{ message.created_at }}</p>
-                        <p>{{ message.content }}</p>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-        
-        <form method="post" action="." class="mt-6 container">
-            {% csrf_token %}
-    
-                {{ form.as_p }}
 
-                <button class="py-3 px-5 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Send Message</button>
-    
-        </form>
-
-     </div>
-
-    <script>
-        var messageContainer = document.getElementById('message-container');
-        var messageForm = document.getElementById('message-form');
-        var messageInput = document.getElementById('message-input');
-        var conversationSocket = new WebSocket(
-            'ws://{{ request.get_host }}{% url "conversation:websocket" conversation.id %}'
-        );
-        
-        conversationSocket.onmessage = function(e) {
-            var message = JSON.parse(e.data);
-            // Handle the incoming message and update the UI
-            var messageDiv = document.createElement('div');
-            messageDiv.className = 'flex ' + (message.created_by === '{{ request.user.username }}' ? 'justify-end self-end' : 'justify-start self-start');
-            
-            var contentDiv = document.createElement('div');
-            contentDiv.className = 'rounded-lg shadow-md p-4 ' + (message.created_by === '{{ request.user.username }}' ? 'text-right bg-blue-100' : 'text-left bg-gray-100');
-            
-            var usernameParagraph = document.createElement('p');
-            usernameParagraph.className = 'mb-2';
-            usernameParagraph.innerHTML = '<strong>@' + message.created_by + '</strong> : ' + message.created_at;
-            
-            var contentParagraph = document.createElement('p');
-            contentParagraph.innerHTML = message.content;
-            
-            contentDiv.appendChild(usernameParagraph);
-            contentDiv.appendChild(contentParagraph);
-            
-            messageDiv.appendChild(contentDiv);
-            messageContainer.appendChild(messageDiv);
-            
-            // Automatically scroll to the bottom of the message container
-            messageContainer.scrollTop = messageContainer.scrollHeight;
-        };
-        
-        conversationSocket.onclose = function(e) {
-            // Handle WebSocket connection closed
-        };
-        
-        messageForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            var messageContent = messageInput.value.trim();
-            
-            if (messageContent !== '') {
-                var message = {
-                    'content': messageContent
-                };
-                
-                // Send the message through the WebSocket connection
-                conversationSocket.send(JSON.stringify(message));
-                
-                // Clear the input field
-                messageInput.value = '';
-            }
-        });
-    </script>
-=======
 <div class="container">
   <h1 class="mb-6 text-3xl text-center mt-6"><b>Your Messages</b></h1>
 
@@ -215,5 +133,5 @@
     cursor: pointer;
   }
 </style>
->>>>>>> 90a58ff66c0c27164252a7d66d271a57b35d8555
+
 {% endblock %}

@@ -339,7 +339,7 @@
 </footer>
 
 
-        {{ room_name|json_script:"room-name" }}
+        {% comment %} {{ room_name|json_script:"room-name" }}
         <script>
         
             
@@ -380,5 +380,5 @@
         
     </body>
 <script src="jquery.min.js"></script>
-<script src="bootstrap.min.js"></script>
+<script src="bootstrap.min.js"></script> {% endcomment %}
 </html>
