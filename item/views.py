@@ -111,11 +111,11 @@ def detail(request, pk):
         # 'favorite_counter': favorite_counter 
     })
 
-from plyer import notification
-from django.contrib.auth.models import User
+# from plyer import notification
+# from django.contrib.auth.models import User
 
-from plyer import notification
-from django.contrib.auth.models import User
+# from plyer import notification
+# from django.contrib.auth.models import User
 
 @login_required
 def new(request):
@@ -130,12 +130,12 @@ def new(request):
             item.save()
             messages.success(request, 'Thank you! Your Product is under review by the administrators. You shall see it on the platform soon.')
 
-            # Get the users to notify
-            users_to_notify = User.objects.exclude(id=request.user.id)
+            # # Get the users to notify
+            # users_to_notify = User.objects.exclude(id=request.user.id)
 
-            # Send notifications to each user
-            for user in users_to_notify:
-                send_notification(user.username, item.name, "Has been added on PostMarket, Be the First to see")
+            # # Send notifications to each user
+            # for user in users_to_notify:
+            #     send_notification(user.username, item.name, "Has been added on PostMarket, Be the First to see")
 
             return redirect('item:detail', pk=item.id)
     else:
@@ -143,17 +143,17 @@ def new(request):
 
     return render(request, 'item/form.html', {
         'form': form,
-        'title': 'New item',
+        # 'title': 'New item',
     })
 
-def send_notification(username, title, message):
-    notification.notify(
-        title=title,
-        message=message,
-        timeout=10,  # Notification duration in seconds
-        app_name=username,  # Use the username as the app_name to ensure unique notifications per user
-        # app_icon=image_path  # Set the image path as the app_icon to display the image in the notification
-    )
+# def send_notification(username, title, message):
+#     notification.notify(
+#         title=title,
+#         message=message,
+#         timeout=10,  # Notification duration in seconds
+#         app_name=username,  # Use the username as the app_name to ensure unique notifications per user
+#         # app_icon=image_path  # Set the image path as the app_icon to display the image in the notification
+#     )
     
 
 
