@@ -54,3 +54,4 @@ pyOpenSSL
 python-crontab
 python-dateutil
 redis
+plyer-2.1.0
