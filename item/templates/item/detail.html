@@ -12,15 +12,15 @@
         {% endfor %}
     {% endif %}
 </div>    
-<div class="grid grid-cols-1 md:grid-cols-5 gap-6 container">
+<div class="container mt-5 grid grid-cols-1 md:grid-cols-5 gap-6 container">
    
     {% if item.image %}
     <div class="md:col-span-3">
 
         
-        <div class="md:col-span-3">
-    <div class="d-flex flex-wrap align-items-center container">
-        <img src="{{ item.image.url }}" class="rounded-xl mb-3 mb-md-0">
+      <div class="md:col-span-3">
+        <div class="d-flex flex-wrap align-items-center container">
+          <img src="{{ item.image.url }}" class="rounded-xl mb-3 mb-md-0" width="500" height="500" onclick="showFullscreenImage('{{ item.image.url }}')">
     </div>
 
     
@@ -72,6 +72,25 @@
   border-radius: 6px;
 }
 
+#fullscreen-image {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 99999;
+  text-align: center;
+}
+
+#fullscreen-image img {
+  max-width: 90%;
+  max-height: 90%;
+  margin-top: 5%;
+  border-radius: 6px;
+}
+
 </style>
 
 {% if request.user.is_authenticated %}
@@ -85,7 +104,15 @@
     {% endif %}
 </div>
 
+
+{% comment %} <div id="fullscreen-image">
+  <span class="close-button" onclick="closeFullscreenImage()">&times;</span>
+  <img id="fullscreen-image-img">
+</div> {% endcomment %}
+
+
 <script>
+
 function showPopup(event) {
     event.preventDefault(); // Prevent the link from redirecting
     
@@ -203,7 +230,7 @@ function showPopup(event) {
       <a href="{% url 'item:detail' item.id %}">
         <div class="card mb-4">
           {% if item.image %}
-          <img src="{{ item.image.url }}" class="card-img-top" onclick="showFullscreenImage('{{ item.image.url }}')">
+          <img src="{{ item.image.url }}" width="50px" height="10px" class="card-img-top" onclick="showFullscreenImage('{{ item.image.url }}')">
           {% endif %}
           <div class="card-body">
             <h5 class="card-title">{{ item.name }}</h5>
@@ -223,11 +250,6 @@ function showPopup(event) {
 
 </div>
 </div>
-
-
-<script>
-
-</script>
 
 
 {% endblock %}
