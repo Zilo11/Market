@@ -22,10 +22,10 @@
   </div>
 
   <div class="message-form-container">
-    <form method="post" action="." class="message-form">
+    <form method="post" action="." class="container message-form">
       {% csrf_token %}
       {{ form.as_p }}
-      <button class="send-button">Send Message</button>
+      <button class="send-button">Message</button>
     </form>
   </div>
 </div>

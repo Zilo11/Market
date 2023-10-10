@@ -85,14 +85,14 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 <link rel="stylesheet" href="static 'bootstrap.min.css">
 
-    <style>
+   <style>
         html {
             position: relative;
             min-height: 100%;
         }
 
         body {
-            margin-bottom: 100px;
+            margin-bottom: 100p x;
         }
         notification {
             background-color: #0d6efd;
@@ -140,26 +140,22 @@
         #notifications-dropdown.dropdown-menu {
             width: 15rem;
         }
+
+
+        #footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: #333;
+                padding: 20px;
+                text-align: center;
+                color: #fff;
+                display: none;
+                }
         
 
-        footer {
-            bottom: 0;
-            width: 100%;
-            padding: 10px 0; /* Adjust padding as desired */
-            background-color: #333;
-            font-family: Arial, sans-serif;
-            margin-bottom: 0px;
-            position: relative;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            color: #fff;
-        }
-
+        
         .footer-links {
             margin-bottom: 2px;
         }
@@ -311,33 +307,59 @@
         {% endblock %}
 
 
-
-    <footer class="footer bg-dark text-center">
+        <footer id="footer" class="flex justify-between items-center bg-dark">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 mx-auto">
-                <div class="footer-links">
-                    <a href="{% url 'core:about' %}" class="text-lg text-white hover:text-teal-500">About</a>
-                    <a href="{% url 'core:contact' %}" class="text-lg text-white hover:text-teal-500">Contact</a>
-                    <a href="{% url 'core:privacy_policy' %}" class="text-lg text-white hover:text-teal-500">Privacy Policy</a>
-                  </div>
-                </div>
-              </div>
-          
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="footer-content">
-                    <p class="mt-2">Powered by <a href="https://zilotechs.com" target="_blank" class="powered-by">Zilo</a></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </footer>
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="footer-links">
+            <a href="{% url 'core:about' %}" class="text-lg text-white hover:text-teal-500">About</a>
+            <a href="{% url 'core:contact' %}" class="text-lg text-white hover:text-teal-500">Contact</a>
+            <a href="{% url 'core:privacy_policy' %}" class="text-lg text-white hover:text-teal-500">Privacy Policy</a>
+          </div>
+        </div>
+      </div>
 
+      <div class="row">
+        <div class="col-md-12">
+          <div class="footer-content">
+            <p class="mt-2">Powered by <a href="https://zilotechs.com" target="_blank" class="powered-by">Zilo</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+
+    
      
     </div>
 </footer>
+        
+        <script>
 
+            window.addEventListener('DOMContentLoaded', function() {
+  var footer = document.getElementById('footer');
+  var content = document.body;
+  var contentHeight = content.offsetHeight;
+  var windowHeight = window.innerHeight;
+
+  if (contentHeight > windowHeight) {
+    window.addEventListener('scroll', function() {
+      var scrollPosition = window.scrollY || window.pageYOffset;
+      var scrollBottom = scrollPosition + windowHeight;
+
+      if (scrollBottom >= contentHeight) {
+        footer.style.display = 'block';
+      } else {
+        footer.style.display = 'none';
+      }
+    });
+  } else {
+    footer.style.display = 'block';
+  }
+});
+        </script>
 
         {% comment %} {{ room_name|json_script:"room-name" }}
         <script>

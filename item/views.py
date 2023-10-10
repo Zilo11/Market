@@ -8,6 +8,9 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 from django.http import JsonResponse
 
+from django.core.exceptions import ObjectDoesNotExist
+
+
 
 
 def items(request):
@@ -93,22 +96,28 @@ def admin_approval(request):
     })
 
             
-
 def detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
     related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:2]
-    
-    if request.user.is_authenticated:
-        favorite = FavoriteItem.objects.get(user=request.user)
-        favorite_counter = favorite.counter
 
-        if favorite_counter > 5:
-            messages.info(request, 'Your Cart is full.Remove some items to inorder to add this new Item')
+    if request.user.is_authenticated:
+        try:
+            favorite = FavoriteItem.objects.get(user=request.user)
+            favorite_counter = favorite.counter
+
+            if favorite_counter > 5:
+                messages.info(request, 'Your Cart is full. Remove some items to add this new Item')
+        except ObjectDoesNotExist:
+            # Handle the case when FavoriteItem does not exist for the user
+            favorite_counter = 0
+            # messages.info(request, 'No FavoriteItem found for the user')
+    else:
+        favorite_counter = 0
 
     return render(request, 'item/detail.html', {
         'item': item,
         'related_items': related_items,
-        # 'favorite_counter': favorite_counter 
+        'favorite_counter': favorite_counter 
     })
 
 # from plyer import notification
