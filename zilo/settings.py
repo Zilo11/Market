@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'dashboard',
     'item',
     'notifications_app',
+    # 'item.custom_filters',
 #     'django_celery_beat',
 #     'django_celery_results',
 ]
@@ -117,6 +118,11 @@ ASGI_APPLICATION = 'zilo.asgi.application'
 # DATABASES = {
 #     "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 # }
+
+
+DATABASES = {
+    "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
 
 
 DATABASES = {

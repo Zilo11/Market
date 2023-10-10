@@ -103,13 +103,19 @@ def detail(request, pk):
         favorite_counter = favorite.counter
 
         if favorite_counter > 5:
-            messages.info(request, 'Your Cart is full.Remove some items to inorder to')
+            messages.info(request, 'Your Cart is full.Remove some items to inorder to add this new Item')
 
     return render(request, 'item/detail.html', {
         'item': item,
         'related_items': related_items,
         # 'favorite_counter': favorite_counter 
     })
+
+# from plyer import notification
+# from django.contrib.auth.models import User
+
+# from plyer import notification
+# from django.contrib.auth.models import User
 
 @login_required
 def new(request):
@@ -122,8 +128,15 @@ def new(request):
             item.is_approved = False
 
             item.save()
-            messages.success(request,'Thank you! Your Product is under review by the administrators, You shall see it in the platform soon')
-            
+            messages.success(request, 'Thank you! Your Product is under review by the administrators. You shall see it on the platform soon.')
+
+            # # Get the users to notify
+            # users_to_notify = User.objects.exclude(id=request.user.id)
+
+            # # Send notifications to each user
+            # for user in users_to_notify:
+            #     send_notification(user.username, item.name, "Has been added on PostMarket, Be the First to see")
+
             return redirect('item:detail', pk=item.id)
     else:
         form = NewItemForm()
@@ -132,6 +145,17 @@ def new(request):
         'form': form,
         'title': 'New item',
     })
+
+# def send_notification(username, title, message):
+#     notification.notify(
+#         title=title,
+#         message=message,
+#         timeout=10,  # Notification duration in seconds
+#         app_name=username,  # Use the username as the app_name to ensure unique notifications per user
+#         # app_icon=image_path  # Set the image path as the app_icon to display the image in the notification
+#     )
+    
+
 
 @login_required
 def edit(request, pk):
@@ -175,7 +199,10 @@ def item_detail(request, pk):
             review.item = item
             review.user = request.user
             review.save()
-            return redirect('item_detail', pk=pk)
+            messages.success(request, 'Your review has been submitted.')
+            return redirect('item:detail', pk=pk)
+    else:
+        form = ReviewForm()
 
     # Get items with similar user interactions
     similar_items = Item.objects.filter(reviews__user=request.user).exclude(pk=pk).distinct()

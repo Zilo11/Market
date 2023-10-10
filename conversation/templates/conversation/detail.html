@@ -3,85 +3,135 @@
 {% block title %}Messages{% endblock %}
 
 {% block content %}
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl text-center mb-6">Your Messages</h1>
-        
-        <div id="message-container" class="space-y-6">
-            {% for message in conversation.messages.all %}
-                <div class="flex {% if message.created_by == request.user %}justify-end self-end{% else %}justify-start self-start{% endif %}">
-                    <div class="rounded-lg shadow-md bg-blue-100 p-4 {% if message.created_by == request.user %}text-right bg-blue-100{% else %}text-left bg-gray-100{% endif %}" style="word-break: break-word;">
-                    <p class="mb-2"><strong>@{{ message.created_by.username }}</strong> : {{ message.created_at }}</p>
-                        <p>{{ message.content }}</p>
-                    </div>
-                </div>
-            {% endfor %}
+
+<div class="container">
+  <h1 class="mb-6 text-3xl text-center mt-6"><b>Your Messages</b></h1>
+
+  <div class="message-container">
+    {% for message in conversation.messages.all %}
+      <div class="message {% if message.created_by == request.user %}outgoing{% else %}incoming{% endif %}">
+        <div class="message-content">
+          <div class="message-info">
+            <p class="message-sender"><strong>@{{ message.created_by.username }}</strong></p>
+            <p class="message-time">{{ message.created_at }}</p>
+          </div>
+          <p class="message-text">{{ message.content }}</p>
         </div>
-        
-        <form method="post" action="." class="mt-6 container">
-            {% csrf_token %}
-    
-                {{ form.as_p }}
+      </div>
+    {% endfor %}
+  </div>
 
-                <button class="py-3 px-5 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Send Message</button>
-    
-        </form>
+  <div class="message-form-container">
+    <form method="post" action="." class="message-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="send-button">Send Message</button>
+    </form>
+  </div>
+</div>
 
-     </div>
+<script>
+  var conversationSocket = new WebSocket(
+    'ws://{{ request.get_host }}{% url "conversation:websocket" conversation.id %}'
+  );
 
-    <script>
-        var messageContainer = document.getElementById('message-container');
-        var messageForm = document.getElementById('message-form');
-        var messageInput = document.getElementById('message-input');
-        var conversationSocket = new WebSocket(
-            'ws://{{ request.get_host }}{% url "conversation:websocket" conversation.id %}'
-        );
-        
-        conversationSocket.onmessage = function(e) {
-            var message = JSON.parse(e.data);
-            // Handle the incoming message and update the UI
-            var messageDiv = document.createElement('div');
-            messageDiv.className = 'flex ' + (message.created_by === '{{ request.user.username }}' ? 'justify-end self-end' : 'justify-start self-start');
-            
-            var contentDiv = document.createElement('div');
-            contentDiv.className = 'rounded-lg shadow-md p-4 ' + (message.created_by === '{{ request.user.username }}' ? 'text-right bg-blue-100' : 'text-left bg-gray-100');
-            
-            var usernameParagraph = document.createElement('p');
-            usernameParagraph.className = 'mb-2';
-            usernameParagraph.innerHTML = '<strong>@' + message.created_by + '</strong> : ' + message.created_at;
-            
-            var contentParagraph = document.createElement('p');
-            contentParagraph.innerHTML = message.content;
-            
-            contentDiv.appendChild(usernameParagraph);
-            contentDiv.appendChild(contentParagraph);
-            
-            messageDiv.appendChild(contentDiv);
-            messageContainer.appendChild(messageDiv);
-            
-            // Automatically scroll to the bottom of the message container
-            messageContainer.scrollTop = messageContainer.scrollHeight;
-        };
-        
-        conversationSocket.onclose = function(e) {
-            // Handle WebSocket connection closed
-        };
-        
-        messageForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            var messageContent = messageInput.value.trim();
-            
-            if (messageContent !== '') {
-                var message = {
-                    'content': messageContent
-                };
-                
-                // Send the message through the WebSocket connection
-                conversationSocket.send(JSON.stringify(message));
-                
-                // Clear the input field
-                messageInput.value = '';
-            }
-        });
-    </script>
+  conversationSocket.onmessage = function(e) {
+    var message = JSON.parse(e.data);
+    // Handle the incoming message, update the UI, etc.
+  };
+
+  conversationSocket.onclose = function(e) {
+    // Handle WebSocket connection closed
+  };
+
+  // Send a message through the WebSocket
+  function sendMessage(message) {
+    conversationSocket.send(JSON.stringify(message));
+  }
+</script>
+
+<style>
+  .message-container {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .message {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+
+  .message.outgoing {
+    align-items: flex-end;
+  }
+
+  .message-content {
+    background-color: #DCF8C6;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 75%;
+  }
+
+  .message.outgoing .message-content {
+    background-color: #DCF8C6;
+  }
+
+  .message.incoming .message-content {
+    background-color: #F5F5F5;
+  }
+
+  .message-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 5px;
+  }
+
+  .message-sender {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+
+  .message-time {
+    font-size: 0.8rem;
+    margin-left: 5px;
+    color: #888888;
+  }
+
+  .message-text {
+    margin: 0;
+  }
+
+  .message-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .message-form {
+    display: flex;
+    align-items: center;
+  }
+
+  .message-form input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #CCCCCC;
+    margin-right: 10px;
+  }
+
+  .send-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>
+
 {% endblock %}

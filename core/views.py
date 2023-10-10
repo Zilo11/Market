@@ -114,4 +114,5 @@ def email_form(request):
         return redirect('/email_form/')
     
     users = User.objects.all()
-    return render(request, 'core/email_form.html', {'users': users})
+    return render(request, 'core/email_form.html', {'users': users})  
+
