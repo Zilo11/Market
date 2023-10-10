@@ -6,6 +6,7 @@ from item.models import Item
 from .forms import ConversationMessageForm
 from .models import Conversation
 
+from django.contrib import messages
 @login_required
 def new_conversation(request, item_pk):
     item = get_object_or_404(Item, pk=item_pk)
@@ -32,6 +33,8 @@ def new_conversation(request, item_pk):
             conversation_message.created_by = request.user
             conversation_message.save()
 
+           
+            messages.success(request, "Message sent successfully.")
             return redirect('item:detail', pk=item_pk)
     else:
         form = ConversationMessageForm()
@@ -39,6 +42,7 @@ def new_conversation(request, item_pk):
     return render(request, 'conversation/new.html', {
         'form': form
     })
+
 
 @login_required
 def inbox(request):

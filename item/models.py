@@ -39,21 +39,14 @@ class FavoriteItem(models.Model):
     
     def __str__(self):
         return f"{self.user.username}'s favorite items"
-
+    
 
 class Review(models.Model):
-    RATING_CHOICES = (
-        (1, '1 Star'),
-        (2, '2 Stars'),
-        (3, '3 Stars'),
-        (4, '4 Stars'),
-        (5, '5 Stars'),
-    )
-
+    
     item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='reviews')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    rating = models.IntegerField(choices=RATING_CHOICES)
-    comment = models.TextField()
+    rate = models.IntegerField(default=0)
+    # comment = models.TextField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -61,3 +54,5 @@ class Review(models.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.item.name, self.user.username)
+    
+    

@@ -9,9 +9,9 @@
     {% if user.is_authenticated %}
         <marquee>
         <h2 class="text-2xl text-center mt-5">
-            <b class="text-3xl lg:text-4xl"><b>Welcome</b>, {{ user.username }}!</b>
+            <p class="text-3xl lg:text-4xl">Welcome, <b style="text-transform: capitalize;">{{ user.username }}!</b></p>
          </h2>
-        <p class="text-lg text-center mt-3">Thank you for choosing PostMarket. Start exploring latest items and find great deals!</p>
+        <p class="text-center mt-3">Thank you for choosing PostMarket. Start exploring latest items and find great deals!</p>
     </marquee>
 
     {% endif %}
@@ -25,11 +25,8 @@
     </form>
 
     <h2 class="mb-12 text-2xl text-center mt-5"><b class="text-3xl lg:text-4xl">NEWEST ITEMS</b></h2>
- 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-2">
-
-  
-        {% for item in items|slice:":15" reversed %}
+            {% for item in items|slice:":15" reversed %}
     {% if item.image %}
         <div class="flex flex-col items-center mb-4">
             <a href="{% url 'item:detail' item.id %}">
@@ -44,6 +41,7 @@
                 <p class="text-gray-500">Price: FCFA {{ item.price }}</p>
                 
                 {% if request.user.is_authenticated %}
+<<<<<<< HEAD
                 {% for fav_item in favorite %}
                     {% if item in fav_item.items.all %}
 
@@ -53,14 +51,23 @@
   </svg>
 </a>
 
+=======
+                    {% for favorite_item in favorite %}
+                    {% if item in favorite_item.items.all %}
+                        <a href="{% url 'item:remove_from_favorite' pk=item.pk %}">
+                            <svg class="bi bi-heart wishlist-icon" width="16" height="16" viewBox="0 0 16 16">
+                                <path fill="red" d="M8 14.757l-6.5-6.5C.57 7.034 0 5.979 0 4.915 0 2.67 1.79 1 4 1c1.133 0 2.266.44 3 1.286C8.734 1.44 9.867 1 11 1c2.21 0 4 1.67 4 3.915 0 1.064-.57 2.119-1.5 3.342L8 14.757z"/>
+                            </svg>
+                        </a>
+>>>>>>> origin
                     {% endif %}
-                {% endfor %}
-
+                    {% endfor %}
                 {% endif %}
             </div>
         </div>
-        {% endif %}
-        {% endfor %}
+    {% endif %}
+{% endfor %}
+
     </div>
     <center>
         <div class="btn btn-primary">
@@ -71,10 +78,10 @@
 </div>
 
 <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-    <h2 class="mb-12 text-2xl text-center">Categories</h2>
+    <h1 style="font-size: 45px;" class="mb-12 text-2xl text-center"><b>Categories List</b></h1>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-3">
-        {% for category in categories %}
+        {% for category in categories reversed %}
         <div>
             <a href="{% url 'item:items' %}?query={{ query }}&category={{ category.id }}">
                 <div class="p-6 bg-white rounded-b-xl">
@@ -86,5 +93,6 @@
         {% endfor %}
     </div>
 </div>
-<div class="mt-5">,</div>
+
+
 {% endblock %}

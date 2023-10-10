@@ -3,44 +3,135 @@
 {% block title %}Messages{% endblock %}
 
 {% block content %}
-<h1 class="mb-6 text-3xl">Messages</h1>
 
-<div class="space-y-6">
+<div class="container">
+  <h1 class="mb-6 text-3xl text-center mt-6"><b>Your Messages</b></h1>
+
+  <div class="message-container">
     {% for message in conversation.messages.all %}
-        <div class="p-6 flex {% if message.created_by == request.user %}bg-blue-100{% else %}bg-gray-100{% endif %} rounded-xl">
-            <div>
-                <p class="mb-4"><strong>@{{ message.created_by.username }}</strong> : {{ message.created_at }}</p>
-                <p>{{ message.content }}</p>
-            </div>
+      <div class="message {% if message.created_by == request.user %}outgoing{% else %}incoming{% endif %}">
+        <div class="message-content">
+          <div class="message-info">
+            <p class="message-sender"><strong>@{{ message.created_by.username }}</strong></p>
+            <p class="message-time">{{ message.created_at }}</p>
+          </div>
+          <p class="message-text">{{ message.content }}</p>
         </div>
+      </div>
     {% endfor %}
+  </div>
+
+  <div class="message-form-container">
+    <form method="post" action="." class="container message-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="send-button">Message</button>
+    </form>
+  </div>
 </div>
 
-<form method="post" action="." class="mt-6">
-    {% csrf_token %}
-
-    {{ form.as_p }}
-
-    <button class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Send</button>
-</form>
-<br><br>
 <script>
-    var conversationSocket = new WebSocket(
-        'ws://{{ request.get_host }}{% url "conversation:websocket" conversation.id %}'
-    );
-    
-    conversationSocket.onmessage = function(e) {
-        var message = JSON.parse(e.data);
-        // Handle the incoming message, update the UI, etc.
-    };
-    
-    conversationSocket.onclose = function(e) {
-        // Handle WebSocket connection closed
-    };
-    
-    // Send a message through the WebSocket
-    function sendMessage(message) {
-        conversationSocket.send(JSON.stringify(message));
-    }
-    </script>
+  var conversationSocket = new WebSocket(
+    'ws://{{ request.get_host }}{% url "conversation:websocket" conversation.id %}'
+  );
+
+  conversationSocket.onmessage = function(e) {
+    var message = JSON.parse(e.data);
+    // Handle the incoming message, update the UI, etc.
+  };
+
+  conversationSocket.onclose = function(e) {
+    // Handle WebSocket connection closed
+  };
+
+  // Send a message through the WebSocket
+  function sendMessage(message) {
+    conversationSocket.send(JSON.stringify(message));
+  }
+</script>
+
+<style>
+  .message-container {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .message {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+
+  .message.outgoing {
+    align-items: flex-end;
+  }
+
+  .message-content {
+    background-color: #DCF8C6;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 75%;
+  }
+
+  .message.outgoing .message-content {
+    background-color: #DCF8C6;
+  }
+
+  .message.incoming .message-content {
+    background-color: #F5F5F5;
+  }
+
+  .message-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 5px;
+  }
+
+  .message-sender {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+
+  .message-time {
+    font-size: 0.8rem;
+    margin-left: 5px;
+    color: #888888;
+  }
+
+  .message-text {
+    margin: 0;
+  }
+
+  .message-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  .message-form {
+    display: flex;
+    align-items: center;
+  }
+
+  .message-form input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #CCCCCC;
+    margin-right: 10px;
+  }
+
+  .send-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>
+
 {% endblock %}

@@ -13,10 +13,12 @@ class NewItemForm(forms.ModelForm):
                 'class': INPUT_CLASSES
             }),
             'name': forms.TextInput(attrs={
-                'class': INPUT_CLASSES
+                'class': INPUT_CLASSES,
+                'placeholder': 'Item name'
             }),
             'description': forms.Textarea(attrs={
-                'class': INPUT_CLASSES
+                'class': INPUT_CLASSES,
+                'placeholder': 'Provide a summarize description of your Item.'
             }),
             'price': forms.TextInput(attrs={
                 'class': INPUT_CLASSES
@@ -58,20 +60,14 @@ class EditItemForm(forms.ModelForm):
             })
         }
         
-from django import forms
 from .models import Review
-
 class ReviewForm(forms.ModelForm):
-    RATING_CHOICES = (
-        (1, '1 Star'),
-        (2, '2 Stars'),
-        (3, '3 Stars'),
-        (4, '4 Stars'),
-        (5, '5 Stars'),
+    rate = forms.ChoiceField(
+        choices=[(str(i), str(i)) for i in range(1, 6)],
+        widget=forms.RadioSelect(attrs={'class': 'star'}),
+        label='Rating'
     )
-
-    rating = forms.ChoiceField(choices=RATING_CHOICES, widget=forms.RadioSelect())
 
     class Meta:
         model = Review
-        fields = ('rating', 'comment')
+        fields = ('rate',)

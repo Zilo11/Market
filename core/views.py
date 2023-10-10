@@ -3,6 +3,11 @@ from django.shortcuts import render, redirect
 from item.models import Category, Item, FavoriteItem
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from channels.layers import get_channel_layer
+import json 
+from django.http import HttpResponse
+from asgiref.sync import async_to_sync
+
 
 
 from .forms import SignupForm
@@ -10,8 +15,7 @@ from django.contrib.auth import logout,login
 
 
 def index(request):
-    items = Item.objects.filter(is_approved=True, is_sold=False)[0:12]
-    
+    items = Item.objects.filter(is_approved=True, is_sold=False)[0:24]
     favorite = FavoriteItem.objects.none()
     favorite_counter = None
 
@@ -26,9 +30,40 @@ def index(request):
     return render(request, 'core/index.html', {
         'categories': categories,
         'items': items,
-        'favorite': favorite,
-        'favorite_counter': favorite_counter
+        'room_name': "broadcast",
+        'favorite_counter': favorite_counter,
+        'favorite': favorite
     })
+
+    
+
+def favorite(request):
+    favorites = FavoriteItem.objects.filter(user=request.user)
+
+    favorite = FavoriteItem.objects.none()
+    favorite_counter =  0
+
+    if request.user.is_authenticated:
+        favorite = FavoriteItem.objects.filter(user=request.user)
+        
+        if favorite.exists():
+            favorite_counter = favorite.first().counter
+
+    context={
+        'favorite': favorite
+    }
+    return render(request, 'core/favorite.html', context)
+
+def test(request):
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        "notification_broadcast",
+        {
+            'type': 'send_notification',
+            'message': json.dumps("Notification")
+        }
+    )
+    return HttpResponse("Done")
 
 def contact(request):
     return render(request, 'core/contact.html')
@@ -79,4 +114,5 @@ def email_form(request):
         return redirect('/email_form/')
     
     users = User.objects.all()
-    return render(request, 'core/email_form.html', {'users': users})
+    return render(request, 'core/email_form.html', {'users': users})  
+

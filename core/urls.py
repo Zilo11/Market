@@ -8,6 +8,7 @@ app_name = 'core'
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('test/', views.test, name='test'),
     path('contact/', views.contact, name='contact'),
     path('about/', views.about, name='about'),
     path('termsAndConditions/', views.termsAndConditions, name='termsAndConditions'),
@@ -17,6 +18,8 @@ urlpatterns = [
     path('logout/',views.sign_out,name='logout'),
     
     path('send-email/', email_form, name='send_email'),
+
+    path('favorite',  views.favorite, name = 'favorite')
     
     #Password reset
 #     path('reset_password/',auth_views.PasswordResetView.as_view(),name='reset_password'),
