@@ -110,7 +110,7 @@ def detail(request, pk):
         except ObjectDoesNotExist:
             # Handle the case when FavoriteItem does not exist for the user
             favorite_counter = 0
-            messages.info(request, 'No FavoriteItem found for the user')
+            # messages.info(request, 'No FavoriteItem found for the user')
     else:
         favorite_counter = 0
 
