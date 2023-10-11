@@ -199,13 +199,12 @@
 <body>
     
   <nav class="py-6 px-1 flex justify-between items-center border-b bg-dark">
-    <div style="position: relative; display: inline-block; color: white;">
-        <a href="/" style="text-decoration: none;">
-            <span style="font-family: 'Arial', sans-serif; font-size: 24px; font-weight: bold; color:#00bfa6; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); letter-spacing: 2px;">Post</span>
-            <span style="font-family: 'Arial', sans-serif; font-size: 24px; font-weight: bold; padding-top: 15px; color:  #ff9900;">Market</span>
-        </a>
-    </div>
+    <div style="position: relative; display: inline-block;" class="py--3">
+                <a href="/"><span style="font-family: 'Arial', sans-serif; font-size: 24px; font-weight: bold; color:#00bfa6; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); letter-spacing: 2px;">Post</span>
+                <span style="position: absolute; bottom: : -10px; left: 30px; font-family: 'Arial', sans-serif; font-size: 24px; font-weight: bold;padding-top: 15px;  color:  #ff9900;">Market</span></a>
+      </div>
 
+  {% if request.user.is_authenticated %}    
     <div style="color: white; position: absolute; right: 20px; display: flex; align-items: center;" class="justify-content-between">
     <div class="wishlist-icon" style="margin-right: 10px;">
         <a href="{% url 'core:favorite' %}">
@@ -237,8 +236,6 @@
         </ul>
     </div>
 
-    {% if request.user.is_authenticated %}
-        <div style="position: relative; display: inline-block;">
             <a href="#" class="user-icon" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fas fa-user" style="font-size: 24px;"></i>
             </a>
@@ -249,10 +246,13 @@
                 <li><a class="dropdown-item" href="{% url 'item:items' %}">Browse</a></li>
             </ul>
         </div>
-    {% else %}
-        <a href="{% url 'core:signup' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700" style="margin-right: 10px;">Sign up</a>
-        <a href="{% url 'core:login' %}" class="px-6 py-3 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700" style="margin-right: 10px;">Log in</a>
-    {% endif %}
+        {% else %}
+    <div style="color: white; position: absolute; right: 20px; display: flex; align-items: center;">
+        <a href="{% url 'core:signup' %}" class="px-3 py-2 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700" style="margin-right: 10px;">Sign up</a>
+        <a href="{% url 'core:login' %}" class="px-3 py-2 text-lg font-semibold bg-gray-500 text-white rounded-xl hover:bg-gray-700">Log in</a>
+    </div>
+{% endif %}
+
 </div>
 </nav>
         
