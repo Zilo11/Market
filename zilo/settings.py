@@ -98,11 +98,6 @@ WSGI_APPLICATION = 'zilo.wsgi.application'
 ASGI_APPLICATION = 'zilo.asgi.application'
 
 
-<<<<<<< HEAD
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-=======
->>>>>>> origin
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -128,7 +123,6 @@ ASGI_APPLICATION = 'zilo.asgi.application'
 DATABASES = {
     "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
-
 
 
 # DATABASES = {
