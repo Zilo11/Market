@@ -3,21 +3,33 @@
 {% block title %}Messages{% endblock %}
 
 {% block content %}
-
 <div class="container">
   <h1 class="mb-6 text-3xl text-center mt-6"><b>Your Messages</b></h1>
 
-  <div class="message-container">
-    {% for message in conversation.messages.all %}
-      <div class="message {% if message.created_by == request.user %}outgoing{% else %}incoming{% endif %}">
-        <div class="message-content">
-          <div class="message-info">
-            <p class="message-sender"><strong>@{{ message.created_by.username }}</strong></p>
-            <p class="message-time">{{ message.created_at }}</p>
+  <div class="message-container mt-5 text-center">
+    {% regroup conversation.messages.all by created_at.date as messages_by_date %}
+    {% for messages in messages_by_date %}
+      {% with today=messages.grouper|date:"Y-m-d" %}
+        {% if today == now|date:"Y-m-d" %}
+          <h2 class="message-date">Today</h2>
+        {% elif today == yesterday|date:"Y-m-d" %}
+          <h2 class="message-date">Yesterday</h2>
+        {% else %}
+          <h2 class="message-date">{{ messages.grouper|date:"F d, Y" }}</h2>
+        {% endif %}
+
+        {% for message in messages.list %}
+          <div class="message {% if message.created_by == request.user %}outgoing{% else %}incoming{% endif %}">
+            <div class="message-content">
+              <div class="message-info">
+                <p class="">@{{ message.created_by.username }}</p>
+                <p class="message-time">{{ message.created_at|time:"h:i A" }}</p>
+              </div>
+              <p class="message-text ">{{ message.content }}</p>
+            </div>
           </div>
-          <p class="message-text">{{ message.content }}</p>
-        </div>
-      </div>
+        {% endfor %}
+      {% endwith %}
     {% endfor %}
   </div>
 
@@ -104,6 +116,11 @@
     margin: 0;
   }
 
+  .message-date {
+    margin: 10px 0;
+    font-weight: bold;
+  }
+
   .message-form-container {
     display: flex;
     justify-content: center;
@@ -132,6 +149,37 @@
     border-radius: 5px;
     cursor: pointer;
   }
+
+
+  .message-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Updated alignment */
+  margin-top: 20px;
+}
+
+.message-form {
+  display: flex;
+  flex-direction: column; /* Updated flex direction */
+  align-items: center;
+}
+
+.message-form input[type="text"] {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #CCCCCC;
+  margin-bottom: 10px; /* Added margin-bottom */
+}
+
+.send-button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
 </style>
 
 {% endblock %}

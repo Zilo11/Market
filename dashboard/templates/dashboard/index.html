@@ -4,33 +4,45 @@
 
 {% block content %}
 <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
-        <h1 style="font-size: 45px;" class="mb-12 text-2xl text-center"><b>My Items List</b></h1>
+    <h1 style="font-size: 45px;" class="mb-12 text-2xl text-center"><b>My Items List</b></h1>
     <div class="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-3">
-        {% for item in items reversed %}
-        {% if item %}
+        {% if items %}
+            {% for item in items reversed %}
+                <div>
+                    <a href="{% url 'item:detail' item.id %}">
+                        {% if item.image %}
+                            <div>
+                                <center>
+                                    <img style="height: 300px; width: 300px;" src="{{ item.image.url }}" class="rounded-t-xl">
+                                </center>
+                            </div>
+                        {% endif %}
+                        <div class="p-6 bg-white rounded-b-xl">
+                            <h2 class="text-2xl">{{ item.name }}</h2>
+                            <p class="text-gray-500">Price: FCFA {{ item.price }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        {% else %}
 
-            <div>
-                <a href="{% url 'item:detail' item.id %}">
-                    {% if item.image %}
-                    <div>
-                        <center>
-                        <img style="height: 300px; width: 300px;" src="{{ item.image.url }}" class="rounded-t-xl">
+                <center>
+                                        <h2 class="text-center">You've added no item yet. Proceed by selling your own product via the button link below</h2>
 
-                        </center>
-                    </div>
-                    {% endif %}
+                </center>
 
-                    <div class="p-6 bg-white rounded-b-xl">
-                        <h2 class="text-2xl">{{ item.name }}</h2>
-                        <p class="text-gray-500">Price: FCFA {{ item.price }}</p>
-                    </div>
-                </a>
+{% comment %} <br><br><br> {% endcomment %}
+{% comment %} <center> {% endcomment %}
+    <div class="container">
+        <div class="container mt-5">
+            <div class="text-center">
+                <a href="{% url 'item:new' %}" class="btn btn-primary">Add Your Item</a>
             </div>
-            {% else %}
-            <h2> You've added no item yet</h2>
-            {% endif %}
-            
-        {% endfor %}
+        </div>
+    </div>
+{% comment %} </center> {% endcomment %}
+
+        {% endif %}
     </div>
 </div>
 {% endblock %}

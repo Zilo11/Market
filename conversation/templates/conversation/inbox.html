@@ -1,39 +1,44 @@
 {% extends 'core/base.html' %}
-
+{% load custom_filters %}
 {% block title %}Inbox{% endblock %}
 
 {% block content %}
-        <h1 style="font-size: 45px; text-transform: capitalize;" class="container mt-5 mb-12 text-2xl text-center"><b>{{user.username}}</b> Inbox</h1>
+    <h1 style="font-size: 45px; text-transform: capitalize;" class="container mt-5 mb-12 text-2xl text-center"><b>{{ user.username }}</b> Inbox</h1>
 
-<div class="space-y-6 container mt-5">
-    <center><b><h1 style="font-size: 20px;">Latest Messages</h1></b></center>
-    {% for conversation in conversations %}
-        <a href="{% url 'conversation:detail' conversation.id %}">
-            <div class="container mt-2 p-6 flex bg-gray-100 rounded-xl">
-                <div class="pr-6">
-                    <img src="{{ conversation.item.image.url }}" class="w-20 rounded-full">
-                </div>
+    <div class="space-y-6 container mt-5">
+        <center>
+            <b><h1 style="font-size: 20px;">Latest Messages</h1></b>
+        </center>
+        {% for conversation in conversations %}
+            <a href="{% url 'conversation:detail' conversation.id %}">
+                <div class="container mt-2 p-6 flex bg-gray-100 rounded-xl">
+                    <div class="pr-6">
+                        <img src="{{ conversation.item.image.url }}" class="w-20 rounded-full">
+                    </div>
 
-                <div>
-                    <div class="flex flex-col space-y-2">
-                        <div class="flex justify-between">
-                            <div>
-                                <strong>{{ conversation.members.0.username }}</strong>
-                                <span class="text-sm text-gray-500">{{ conversation.modified_at }}</span>
+                    <div>
+                        <div class="flex flex-col space-y-2">
+                            <div class="flex justify-between">
+                                <div>
+                                    <strong>{{ conversation.members.0.username }}</strong>
+                                    <span class="text-sm text-gray-500">{{ conversation.modified_at }}</span>
+                                </div>
                             </div>
-
-                        </div>
-                        <div>
-                            <p class="mb-1 text-gray-500">From: <b>{{ conversation.item.name }}</b></p>
-                            {% comment %} <p class="text-gray-500">Last message: {{ conversation.last_message.content }}</p> {% endcomment %}
+                            <div>
+                                <p class="mb-1 text-gray-500">From: <b>{{ conversation.last_received_message.created_by.username }} </b></p>
+                                {% if conversation.last_received_message %}
+                                    <p class="text-gray-500">Message:<b>{{ conversation.last_received_message.content |truncatechars:20 }} </b> </p>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </a><br>
-    {% endfor %}
-</div><br>
+            </a>
+            <br>
+        {% endfor %}
+    </div>
+    <br>
 
-<div class="mt-5">.</div>
-<br>
+    <div class="mt-5">.</div>
+    <br>
 {% endblock %}
