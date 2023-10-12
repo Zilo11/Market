@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 from item.models import Item
+from django.db.models import Max
 
 from .forms import ConversationMessageForm
 from .models import Conversation
@@ -44,9 +45,23 @@ def new_conversation(request, item_pk):
     })
 
 
+# @login_required
+# def inbox(request):
+#     # conversations = Conversation.objects.filter(members__in=[request.user.id])
+#     conversations = Conversation.objects.filter(members__in=[request.user.id]).annotate(last_received=Max('messages__created_at'))
+
+#     return render(request, 'conversation/inbox.html', {
+#         'conversations': conversations
+#     })
+
+
 @login_required
 def inbox(request):
     conversations = Conversation.objects.filter(members__in=[request.user.id])
+    
+    for conversation in conversations:
+        last_received_message = conversation.messages.exclude(created_by=request.user).order_by('-created_at').first()
+        conversation.last_received_message = last_received_message
 
     return render(request, 'conversation/inbox.html', {
         'conversations': conversations

@@ -240,7 +240,7 @@
                 <i class="fas fa-user" style="font-size: 24px;"></i>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                <li><a class="dropdown-item" href="{% url 'conversation:inbox' %}">Inbox</a></li>
+                <li><a class="dropdown-item" href="{% url 'conversation:inbox' %}">My Inbox</a></li>
                 <li><a class="dropdown-item" href="{% url 'dashboard:index' %}">My Products</a></li>
                 <li><a class="dropdown-item" href="{% url 'item:new' %}">Add Item</a></li>
                 <li><a class="dropdown-item" href="{% url 'item:items' %}">Browse</a></li>
@@ -261,6 +261,7 @@
         {% endblock %}
 
 <br><br><br>
+<div class="mt-5">,</div>
         <footer id="footer" class="flex justify-between items-center bg-dark mt-5">
     <div class="container">
       <div class="row">
