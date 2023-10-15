@@ -221,20 +221,21 @@
             <hr class="dropdown-divider">
         </ul>
     </div>
-
-    <div style="position: relative; display: inline-block; margin-right: 10px;">
-        <a href="#" class="notification" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fas fa-bell" style="font-size: 24px;"></i>
-            <span class="badge" id="notificationBadge">{{ notifications.count }}</span>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-            {% for i in notifications %}
-                <li class="dropdown-item">{{ i.message }}</li>
-                <hr class="dropdown-divider">
-            {% endfor %}
-            <hr class="dropdown-divider">
-        </ul>
-    </div>
+<div class="dropdown" style="display: inline-block; margin-right: 10px;">
+  <a href="#" class="notification dropdown-toggle" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="fas fa-bell" style="font-size: 24px;"></i>
+    <span class="badge" id="notificationBadge">{{ notifications.count }}</span>
+  </a>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown" style="max-width: 280px;">
+    {% for i in notifications %}
+      <li class="dropdown-item" style="max-height: 120px; overflow: auto; padding: 10px;">
+        <div style="word-wrap: break-word;">{{ i.message }}</div>
+      </li>
+      <li class="dropdown-divider"></li>
+    {% endfor %}
+    <li class="dropdown-divider"></li>
+  </ul>
+</div>
 
             <a href="#" class="user-icon" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fas fa-user" style="font-size: 24px;"></i>
