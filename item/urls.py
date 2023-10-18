@@ -17,4 +17,9 @@ urlpatterns = [
 
     path('add_to_favorite/<int:pk>/', views.add_to_favorite, name='add_to_favorite'),
     path('remove_from_favorite/<int:pk>/', views.remove_from_favorite, name = 'remove_from_favorite'),
+
+    path('sellers_all_items<int:created_by>', views.sellers_all_items, name = 'sellers_all_items'),
+    path('items/sellers_all_items/<int:created_by>/', views.sellers_all_items, name='sellers_all_items'),
+
 ]
+

@@ -222,4 +222,12 @@ def item_detail(request, pk):
         'form': form,
         'similar_items': similar_items
     })
-    
+
+
+def sellers_all_items(request, created_by):
+     items = Item.objects.filter(created_by = created_by)
+     context = {
+        'items': items 
+     }
+
+     return render(request, 'sellers_all_items.html', context)

@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+
+{% block title %}my_products{% endblock %}
+
+{% block content %}
+<h2 class="mb-12 text-2xl text-center mt-5"><b class="text-3xl lg:text-4xl">{{ item.created_by.username }}</b> Product List</h2>
+
+<div class="flex flex-wrap justify-center -mx-4 mt-5">
+    {% for item in items %}
+    
+    {% if item.image %}
+    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 px-4 mb-4">
+        <a href="{% url 'item:detail' item.id %}">
+            <div class="w-full max-w-xs">
+                <img src="{{ item.image.url }}" class="object-cover w-full h-64 rounded-t-xl" style="width: 400px;">
+            </div>
+        </a>
+        <div class="p-6 bg-white rounded-b-xl">
+            <a href="{% url 'item:detail' item.id %}">
+                <h2 class="text-xl lg:text-2xl">{{ item.name }}</h2>
+            </a>
+            <p class="text-gray-500">Price: FCFA {{ item.price }}</p>
+            
+            {% if request.user.is_authenticated %}
+            {% for favorite_item in favorite %}
+            {% if item in favorite_item.items.all %}
+            <a href="{% url 'item:remove_from_favorite' pk=item.pk %}">
+                <svg class="bi bi-heart wishlist-icon" width="16" height="16" viewBox="0 0 16 16">
+                    <path fill="red" d="M8 14.757l-6.5-6.5C.57 7.034 0 5.979 0 4.915 0 2.67 1.79 1 4 1c1.133 0 2.266.44 3 1.286C8.734 1.44 9.867 1 11 1c2.21 0 4 1.67 4 3.915 0 1.064-.57 2.119-1.5 3.342L8 14.757z"/>
+                </svg>
+            </a>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
