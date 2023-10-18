@@ -103,11 +103,11 @@ def signup(request):
     return render(request, 'core/signup.html', {'form': form})
 
 
-def sign_out(request):
+def signout(request):
     logout(request)
-    request.session.clear()
-    request.session.flush()  # Clear session data
-    return redirect('/')
+    # request.session.clear()
+    # request.session.flush()  # Clear session data
+    return redirect('core:index')
 
 
 @login_required

@@ -16,9 +16,7 @@
         <button class="py-2 px-4 text-sm bg-teal-500 text-white rounded" style="border-radius: 20px;">Search</button>
     </form>
 
-    {% if request.user.is_authenticated %}
-        <div class="contianer">{{user.username}} you are log in </div>
-    {% endif %}
+   
     <h2 class="mb-12 text-2xl text-center mt-5"><b class="text-3xl lg:text-4xl">NEWEST ITEMS</b></h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-2">
             {% for item in items|slice:":15" reversed %}

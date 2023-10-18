@@ -15,7 +15,7 @@ urlpatterns = [
     path('privacy_policy/', views.privacy_policy, name='privacy_policy'),
     path('signup/', views.signup, name='signup'),
     path('login/', auth_views.LoginView.as_view(template_name='core/login.html', authentication_form=LoginForm), name='login'),
-    path('logout/',views.sign_out,name='logout'),
+    path('signout/',views.signout,name='signout'),
     
     path('send-email/', email_form, name='send_email'),
 

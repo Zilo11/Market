@@ -23,15 +23,28 @@
             {{ form.phone }}
         </div>
 
-        <div class="mb-3">
-            <label class="block mb-2">Password</label>
-            {{ form.password1 }}
-        </div>
+
 
         <div class="mb-3">
-            <label class="block mb-2">Repeat password</label>
-            {{ form.password2 }}
-        </div>
+  <label class="block mb-2">Password</label>
+  <div class="position-relative">
+    <input type="password" name="password1" id="id_password1" class="form-control">
+    <span class="position-absolute top-50 end-0 translate-middle-y" onclick="togglePasswordVisibility('id_password1', 'password-toggle-icon1')">
+      <i id="password-toggle-icon1" class="bi bi-eye"></i>
+    </span>
+  </div>
+</div>
+
+<div class="mb-3">
+  <label class="block mb-2">Confirm Password</label>
+  <div class="position-relative">
+    <input type="password" name="password2" id="id_password2" class="form-control">
+    <span class="position-absolute top-50 end-0 translate-middle-y" onclick="togglePasswordVisibility('id_password2', 'password-toggle-icon2')">
+      <i id="password-toggle-icon2" class="bi bi-eye"></i>
+    </span>
+  </div>
+</div>
+
 
         {% if form.errors or form.non_field_errors %}
             <div class="mb-3 p-6 bg-red-100 rounded-xl">
@@ -46,4 +59,25 @@
         <button class="block w-full py-2 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
     </form>
 </div>
+
+
+
+<script>
+  function togglePasswordVisibility(passwordFieldId, toggleIconId) {
+    var passwordInput = document.getElementById(passwordFieldId);
+    var toggleIcon = document.getElementById(toggleIconId);
+
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      toggleIcon.classList.remove("bi-eye");
+      toggleIcon.classList.add("bi-eye-slash");
+    } else {
+      passwordInput.type = "password";
+      toggleIcon.classList.remove("bi-eye-slash");
+      toggleIcon.classList.add("bi-eye");
+    }
+  }
+</script>
+
+
 {% endblock %}
