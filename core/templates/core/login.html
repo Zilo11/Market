@@ -14,10 +14,20 @@
             {{ form.username }}
         </div>
 
-        <div class="mb-3">
+        {% comment %} <div class="mb-3">
             <label class="block mb-2">Password</label>
             {{ form.password }}
-        </div>
+        </div> {% endcomment %}
+
+   <div class="mb-3">
+  <label class="block mb-2">Password</label>
+  <div class="position-relative">
+    {{ form.password }}
+    <span class="position-absolute top-50 right-50 end-0 translate-middle-y" onclick="togglePasswordVisibility()">
+      <i id="password-toggle-icon" class="bi bi-eye"></i>
+    </span>
+  </div>
+</div>
 
         {% if form.errors or form.non_field_errors %}
             <div class="mb-3 p-6 bg-red-100 rounded-xl">
@@ -41,4 +51,25 @@
             <div class="mt-5">Forgot Password? <b style="color: #ff9900;"><a href="{% url 'reset_password' %}">Reset via Email</a></b></div>
     </center>
 </div>
+
+
+
+<script>
+  function togglePasswordVisibility() {
+    var passwordInput = document.getElementById("id_password");
+    var toggleIcon = document.getElementById("password-toggle-icon");
+    
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      toggleIcon.classList.remove("bi-eye");
+      toggleIcon.classList.add("bi-eye-slash");
+    } else {
+      passwordInput.type = "password";
+      toggleIcon.classList.remove("bi-eye-slash");
+      toggleIcon.classList.add("bi-eye");
+    }
+  }
+</script>
+
+
 {% endblock %}
