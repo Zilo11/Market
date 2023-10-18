@@ -91,6 +91,29 @@
   border-radius: 6px;
 }
 
+
+.rating-stars {
+                  unicode-bidi: bidi-override;
+                  direction: rtl;
+                  text-align: center;
+              }
+          
+              .rating-stars input[type="radio"] {
+                  display: none;
+              }
+          
+              .rating-stars label.star {
+                  display: inline-block;
+                  font-size: 2rem;
+                  color: #ccc;
+                  transition: color 0.2s;
+                  cursor: pointer;
+              }
+          
+              .rating-stars input[type="radio"]:checked ~ label.star {
+                  color: gold;
+              }
+
 </style>
 
 {% if request.user.is_authenticated %}
@@ -211,29 +234,7 @@ function showPopup(event) {
               <p class="mt-6">Please <a href="{% url 'account_login' %}?next={{ request.path }}">log in</a> to add a review.</p> {% endcomment %}
           {% endif %}
           
-          <style>
-              .rating-stars {
-                  unicode-bidi: bidi-override;
-                  direction: rtl;
-                  text-align: center;
-              }
-          
-              .rating-stars input[type="radio"] {
-                  display: none;
-              }
-          
-              .rating-stars label.star {
-                  display: inline-block;
-                  font-size: 2rem;
-                  color: #ccc;
-                  transition: color 0.2s;
-                  cursor: pointer;
-              }
-          
-              .rating-stars input[type="radio"]:checked ~ label.star {
-                  color: gold;
-              }
-          </style>
+      
  {% if request.user == item.created_by %}
   <div class="mt-6 p-6 bg-white rounded-xl">
     <p>This is your item!</p>
